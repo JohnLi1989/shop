@@ -1,0 +1,43 @@
+.new_simple_tips {
+    height: auto;
+    width: 80%;
+    overflow: hidden;
+    display: block;
+    position: fixed;
+    bottom: 60px;
+    background: #000;
+    opacity: .8;
+    padding: 5px;
+    left: 50%;
+    margin-left: -40%;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    z-index: 125
+}
+
+.new_simple_tips img {
+    position: absolute;
+    margin: 12px 0 0 30px
+}
+.new_tips_for_messages {
+    height: 20px;
+    line-height: 20px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #FFF;
+    text-align: center
+}
+
+.new_tips_for_messages span {
+    padding: 0 0 0 21px;
+    background: url(../images/label_wrong.png) no-repeat left;
+    background-size: contain
+}
+
+.new_tips_for_messages .match_success {
+    background: url(../images/label_right.png) no-repeat left;
+    background-size: contain
+}

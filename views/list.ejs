@@ -1,0 +1,54 @@
+<% include layout %>
+<link rel="stylesheet" href="/stylesheets/list.css">
+<div class="wrap">
+        <div class="mod_fixed_wrapper in" id="sortBlock">
+            <!-- mod_filter_fixed -->
+            <div class="mod_filter">
+                <div class="mod_filter_inner">
+                    <a href="javascript:" class="no_icon select" sort-type="default">默认</a>
+                    <a href="javascript:" class="" sort-type="price" mark="1">价格<i class="icon_sort" rd="0-2-2"></i></a>
+                    <a href="javascript:" class="state_switch" sort-type="sale">销量<i class="icon_sort_single"></i></a>
+                    <a href="javascript:" class="state_switch" sort-type="comment">人气<i class="icon_sort_single"></i></a>
+                    <a href="javascript:" class="switch" sort-type="listmode"><i class="icon_switch"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- 一栏/两栏 切换 pro_type_list/pro_type_grid -->
+        <div class="pro_list pro_type_list" id="itemList">
+            <c:forEach items="${goodsList}" var="goodslist">
+                <c:if test="${goodslist.goods_number <= 0}">
+                    <div class="pro_item tmp_soldout" price="${goodslist.shop_price}" salenum="${goodslist.salesnum}" clickcount="${goodslist.click_count}" onClick="window.location.href='/shop/goods/goodsDetail.do?goods_id=${goodslist.goods_id}'">
+                </c:if>
+                <c:if test="${goodslist.goods_number > 0}">
+                    <div class="pro_item" price="${goodslist.shop_price}" salenum="${goodslist.salesnum}" clickcount="${goodslist.click_count}" onClick="window.location.href='/shop/goods/goodsDetail.do?goods_id=${goodslist.goods_id}'">
+                </c:if>
+                <div class="item_inner">
+                    <div class="cover">
+                        <img class="photo" src="${goodslist.goods_thumb}" onload="speedTimePoint[4]=new Date();" >
+                    </div>
+                    <div class="info">
+                        <div class="title" >${goodslist.goods_name}<font class="skcolor_ljg">${goodslist.seo_title}</font></div>
+                        <div class="price">
+                            <strong >
+                                <em id="dp_J_1832782">¥${goodslist.shop_price}</em>
+                            </strong>
+                            <i class="zx_wx">省${goods.wx_price}元</i>
+                                            <span
+                                                    class="tag"></span>
+                        </div>
+                        <div class="other text_small">
+                            <span class="comment_num"><span id="com_1832782">已售出${goodslist.salesnum}件</span></span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </c:forEach>
+    </div>
+    <div class="wx_loading2 hide" id="loadingLogo"> <i class="wx_loading_icon"></i>
+    </div>
+    <div class="s_empty hide" id="noMoreTips">该分类下已无更多</div>
+
+</div>
+</div>
+
+</body>

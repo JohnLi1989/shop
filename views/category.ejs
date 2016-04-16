@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/stylesheets/category.css">
 <div class="hd_bar">
     <form action="###" class="hd_search_frm" onsubmit="return false;">
-        <input type="search" class="hd_search_txt"id="topSearchTxt" placeholder="比女友更亲密">
+        <input type="search" class="hd_search_txt"id="topSearchTxt" placeholder="搜索">
         <a class="hd_search_clear" href="javascript:;" id="topSearchClear" style="display: none;">x</a>
     </form>
     <div class="hd_me">
@@ -14,9 +14,23 @@
 
 </div>
 
-<div id="smartboxBlock" style="display:none;"><div class="search_panel_wrapper" dtab="s-tab" style="display:none;"><div class="search_panel_title"><div class="text">最近搜索</div><div class="title_btn" dtab="s-btn" rd="7095.8.1">清除</div></div><div class="search_panel_con two_row" dtab="s-row"></div><div class="search_panel_title"><div class="text">热门搜索</div><div class="title_btn" dtab="c-btn" rd="7095.8.2">换一批</div></div><div class="search_panel_con" dtab="s-tag"></div></div><div class="s_row" dtab="smartWrap" style="display:none;"> </div></div>
+<div id="smartboxBlock" style="display:none;">
+    <div class="search_panel_wrapper" dtab="s-tab" style="display:none;">
+        <div class="search_panel_title">
+            <div class="text">最近搜索</div>
+            <div class="title_btn" dtab="s-btn" rd="7095.8.1">清除</div>
+        </div>
+        <div class="search_panel_con two_row" dtab="s-row"></div>
+        <div class="search_panel_title">
+            <div class="text">热门搜索</div>
+            <div class="title_btn" dtab="c-btn" rd="7095.8.2">换一批</div>
+        </div>
+        <div class="search_panel_con" dtab="s-tag"></div>
+    </div>
+    <div class="s_row" dtab="smartWrap" style="display:none;"></div>
+</div>
 <div class="wx_loading2" style="display: none;"><i class="wx_loading_icon"></i></div>
-<div class="wx_wrap" style="height: 690px;">
+<div class="wx_wrap">
 
     <div id="yScroll1" style="overflow: hidden; position: fixed; top: 45px; left: 0px; width: 65px; background-color: rgb(243, 243, 243);">
         <ul class="category1" id="allcontent" style="border-bottom-style: none; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 1200ms; transform: translate(0px, 0px) translateZ(0px);">
@@ -31,20 +45,52 @@
     <div id="yScroll2" style="overflow: hidden; position: absolute; top: 45px; left: 65px;">
         <div style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
             <dl class="category2" id="category2">
-                <c:forEach items="${secCats}" var="seccat">
-                    <dt><a href="/shop/goods/goodsList.do?catLevel=${seccats.catLevel}&catId=${seccats.cat_id}">${seccat.cat_name}</a></dt>
+                <% children.forEach(function(second){ %>
+                    <dt><a href="javascript:;"><%=second.cat_name%></a></dt>
                     <dd>
-                        <c:forEach items="${seccat.childCats}" var="thirdcat">
-                            <a href="/shop/goods/goodsList.do?catLevel=${thirdcat.catLevel}&catId=${thirdcat.cat_id}"><img src="${thirdcat.cat_img}" alt="">
-                                <span class="tit">${thirdcat.cat_name}</span>
-                            </a>
-                        </c:forEach>
+                        <% second.child_cat.forEach(function(third){ %>
+                        <a href="/list/<%=third.cat_name%>">
+                            <img src="<%=third.cat_img%>" alt="">
+                            <span class="tit"><%=third.cat_name%></span>
+                        </a>
+                        <% }) %>
                     </dd>
-
-                </c:forEach>
+                <% })%>
             </dl>
         </div>
     </div>
 </div>
 
+<script>
+    var rootcat = $('#allcontent li');
+    rootcat.first().addClass('cur');
+    rootcat.each(function(){
+        $(this).click(function(){
+            $(this).addClass('cur');
+            $(this).siblings().removeClass('cur')
+            var catname = $(this).attr('catname');
+
+            $.ajax({
+                type: "POST",
+                url: "/category?cat="+catname,
+                dataType: "json",
+                success:function(data){
+                    console.log(data);
+                    var content = '';
+                    for(var i=0;i<data.length;i++){
+                        content += '<dt><a href="javascript:;">'+data[i].cat_name+'</a></dt><dd>'
+                        for(var j=0;j<data[i].child_cat.length;j++){
+                            content += '<a href="/list/+'+data[i].child_cat[j].cat_name+'"><img src="'+data[i].child_cat[j].cat_img+'" alt="">';
+                            content += '<span class="tit">'+data[i].child_cat[j].cat_name+'</span></a>';
+                        }
+                        content += '</dd>'
+                    }
+                    $('#category2').html(content);
+                }
+            });
+        });
+    });
+
+
+</script>
 </body>
