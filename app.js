@@ -12,6 +12,9 @@ var routes = require('./routes/router');
 var app = express();
 
 mongoose.connect('mongodb://localhost/shop');
+mongoose.connection.on('open',function(){
+  console.log('mongodb is open');
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

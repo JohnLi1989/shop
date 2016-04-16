@@ -1,40 +1,34 @@
 <% include layout %>
+<link rel="stylesheet" href="/stylesheets/tishi.css">
 <div id="part_main">
-
-
     <div class="mod_slider mod_slider_s1" id="loopImgDiv">
         <!-- 商品图片-->
         <div class="inner">
             <ul class="pic_list" id="loopImgUl">
-                <li><img src="${goods.goods_img}"></li>
+                <li><img src="<%=goods.goods_img%>"></li>
             </ul>
         </div>
-        <div class="bar_wrap">
-            <ul class="bar" id="loopImgBar">
-                <li no="1" class="cur"></li><li no="2" class=""></li>
-            </ul>
-        </div>
+
     </div>
     <!-- 商品信息-->
     <div class="buy_area">
         <div class="fn_wrap">
-            <h1 class="fn" id="itemName">${goods.goods_name}</h1>
-            <div class="desc" id="itemDesc">${goods.seo_title}</div>
+            <h1 class="fn" id="itemName"><%=goods.goods_name%></h1>
+            <div class="desc" id="itemDesc"><%=goods.goods_brief%></div>
         </div>
 
         <div class="price_wrap" id="priceBlock">
-            <span class="tit" id="priceTitle">泰摩价：</span>
-            <span class="price" id="priceSale">￥${goods.shop_price}</span>
+            <span class="tit" id="priceTitle">售价：</span>
+            <span class="price" id="priceSale">￥<%=goods.shop_price%></span>
             <span class="group" id="priceGroupStyle" style="display: none"></span>
-            <span class="tip_red" id="priceDis"><fmt:formatNumber type="number" value="${goods.shop_price/goods.market_price*10}" maxFractionDigits="1" />折</span>
-            <span class="price_old" id="priceMarket">${goods.market_price}</span>
+            <span class="tip_red" id="priceDis"><%=goods.discount%>折</span>
+            <span class="price_old" id="priceMarket"><%=goods.market_price%></span>
             <span class="col_right" id="headEval">
-                <span class="sale_num">已售：<b id="evalNo1">${goods.salesnum}</b>件</span>
+                <span class="sale_num">已售：<b id="evalNo1"><%=goods.sale_number%></b>件</span>
             </span>
         </div>
 
         <div class="de_pm">
-
             <div class="sku_container sku_container_on" id="skuCont">
                 <div class="sku_wrap">
                     <div id="propertyDiv">
@@ -68,235 +62,181 @@
                 </div>
             </div>
             </c:if>-->
-            <!--<div class="sku sku_num" id="skuNum">
-                <h3>数量：</h3>
-                <div class="num_wrap">
-                    <span class="minus minus_disabled" id="minus"></span> <input
-                            class="num" id="buyNum" type="tel" value="1" disabled> <span
-                            class="plus" id="plus"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="detail_gap" id="dingwei"></div>
-
-    <div class="detail_shop_box" id="shopInfoP">
-         <div class="detail_shop_info">
-            <i class="icon_promote" id="shopLinks"></i>';
-            <div class="cover"><img id="shopLogo" src="http://img.taimo.cn/brand/${goods.brand.brand_logo}"></div>
-            <div class="info" id="shopInfo"><div class="name"><span>${goods.brand.brand_name}</span></div><div class="desc"></div></div>
-            <a href="http://www.taimo.cn/brand-${goods.brand.brand_id}.html"><div class="action" id="shopLinks2"><span class="btn_shop">进入品牌</span></div></div></a> &#45;&#45;%>
-    </div>
-    <div class="detail_row detail_service" id="serviveArea">
-        &lt;!&ndash; <i class="icon_point icon_point_drop"></i> &ndash;&gt;
-        <div class="de_row">
-            <div class="tit">运费：</div>
-            <div class="de_span">
-                <div class="service_role">
-                    <span id="postNotice3">${goods.brand.brand_desc}</span>
-                </div> &#45;&#45;
-                <div class="de_ser_list" id="serviceInfo">
-                    <div class="item">
-                        <div class="label">
-                            <c:if test="${goods.is_shipping == 0}">
-                                <i class="icon_service pop_PaymentCod"></i>
-                                <div class="txt">顺丰快递 | 经济快递</div>
-                            </c:if>
-                            <c:if test="${goods.is_shipping == 1}">
-                                <i class="icon_service free_delivery"></i>
-                                <div class="txt">免邮费</div>
-                            </c:if>
-                        </div>
-                        &lt;!&ndash; <div class="desc">支持送货上门后再收款，支持现金、POS机刷卡等方式</div> &ndash;&gt;
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="detail_row detail_service detail_service_tip"
-         id="outService">
-        <div class="de_row">
-            <div class="tit">付款：</div>
-            <div class="de_span">
-                <div class="service_role" id="titNotice" style="display: none"></div>
-                <div class="de_ser_list" id="outServiceNote">
-                    <div class="item">
-                        <div class="label">
-                            <i class="icon_service jingdou_xiankuan"></i>
-                            <div class="txt">微信 | 支付宝</div>
+                    <div class="sku sku_num" id="skuNum">
+                        <h3>数量：</h3>
+                        <div class="num_wrap">
+                            <span class="minus minus_disabled" id="minus"></span> <input class="num" id="buyNum" type="tel" value="1" disabled> <span class="plus" id="plus"></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
-&lt;!&ndash; E de_pm&ndash;&gt;
+        <div class="detail_gap" id="dingwei"></div>
 
-<div class="mod_tab_gap"></div>
+            <div class="detail_shop_box" id="shopInfoP">
+                 <div class="detail_shop_info">
+                    <div class="cover"><img id="shopLogo" src="http://img.taimo.cn/brand/1.gif"></div>
+                    <div class="info" id="shopInfo">
+                        <div class="name"><span><%=goods.goods_brand%></span></div>
+                    </div>
+                </div>
+            </div>
 
-<div class="detail_extra">
-    <div class="detail_row" id="itemDetEnter">
-        <a href="#detailAttr" target="_top"><h3 class="tit">图文详情</h3></a> <i
-                class="icon_promote"></i>
-    </div>
-    <div class="detail_gap"></div>
+            <div class="detail_row detail_service" id="serviveArea">
+                <div class="de_row">
+                    <div class="tit">运费：</div>
+                    <div class="de_span">
+                        <div class="de_ser_list" id="serviceInfo">
+                            <div class="item">
+                                <div class="label">
+                                    <i class="icon_service pop_PaymentCod"></i>
+                                    <div class="txt">顺丰快递 | 经济快递</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-</div>
-
-&lt;!&ndash; <div class="detail_gap"></div> &ndash;&gt;
-<div class="detail_cmd" id="guessArea">
-
-    <div class="hd">
-        <h3 class="tit">相关推荐</h3>
-    </div>
-    &lt;!&ndash; hd &ndash;&gt;
-    <div class="bd">
-        <div class="inner" id="guessItem"
-             style="transform: translate(0px, 0px); transition: all 0.3s ease;">
-
-        </div>
-        &lt;!&ndash; inner &ndash;&gt;
-        <div class="bar_wrap">
-            <ul class="bar" id="guessItemTab"></ul>
-        </div>
-    </div>
-    &lt;!&ndash; bd &ndash;&gt;
-</div><div class="detail_gap"></div>
-
-<div class="detail_cmd" id="starArea">
-    <div class="hd">
-        <h3 class="tit">球星</h3>
-    </div>
-    &lt;!&ndash; hd &ndash;&gt;
-    <div class="bd">
-        <div class="inner" id="starItem"
-             style="transform: translate(0px, 0px); transition: all 0.3s ease;">
-
-        </div>
-        &lt;!&ndash; inner &ndash;&gt;
-        <div class="bar_wrap">
-            <ul class="bar" id="starItemTab"></ul>
-        </div>
-    </div>
-    &lt;!&ndash; bd &ndash;&gt;
-</div><div class="detail_gap"></div>
-
-
-<div id="detailBaseLine" class="mod_tab_gap"></div>
-
-
-<div class="mod_fix_wrap" id="detailAttr">
-    <div class="mod_fix">
-        <div class="mod_tab" id="detailTab">
-            <span class="cur" no="0">商品介绍</span> <span no="1" class="">规格参数</span>
-            <span no="2" class="">购买记录</span>
-        </div>
-    </div>
-</div>
-
-<div class="detail_info_wrap" id="detail">
-    <div class="detail_list" id="detailCont"
-         style="transform: translate(0px, 0px); transition: all 0.3s ease;">
-        &lt;!&ndash; 商品介绍 &ndash;&gt;
-        <div class="detail_item p_desc" id="detail0"
-             style="position: relative;">
-            <div id="commDesc" class="detail_pc">${goods.goods_desc}</div>
-            <div id="pcItemLink" style="display: none">
-                <a class="btn btn_full" href="javascript:;">查看电脑版商品详情</a>
-                <div class="detail_full_tip">（ 查看电脑版商品详情，可能会消耗较多流量 ）</div>
+            <div class="detail_row detail_service detail_service_tip" id="outService">
+                <div class="de_row">
+                    <div class="tit">付款：</div>
+                    <div class="de_span">
+                        <div class="de_ser_list" id="outServiceNote">
+                            <div class="item">
+                                <div class="label">
+                                    <i class="icon_service jingdou_xiankuan"></i>
+                                    <div class="txt">支付宝</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        &lt;!&ndash; 商品参数 &ndash;&gt;
-        <div class="detail_item p_prop" id="detail1">
-            <div>
-                <div class="mod_tit_line">
-                    <h3>商品参数</h3>
-                </div>
 
-                <div id="detParam">
-                    <table class="param_table">
-                        <c:forEach items="${goods.goodsAttrs}" var="attrs">
-                            <c:if test="${attrs.attribute.attr_type == 0}">
+        <div class="mod_tab_gap"></div>
+
+        <div class="detail_extra">
+            <div class="detail_row" id="itemDetEnter">
+                <a href="#detailAttr" target="_top"><h3 class="tit">图文详情</h3></a> <i
+                        class="icon_promote"></i>
+            </div>
+        </div>
+
+        <div id="detailBaseLine" class="mod_tab_gap"></div>
+
+        <div class="mod_fix_wrap" id="detailAttr">
+            <div class="mod_fix">
+                <div class="mod_tab" id="detailTab">
+                    <span class="cur" no="0">商品介绍</span> <span no="1" class="">规格参数</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail_info_wrap" id="detail">
+            <div class="detail_list" id="detailCont" style="transform: translate(0px, 0px); transition: all 0.3s ease;">
+                <div class="detail_item p_desc" id="detail0" style="position: relative;">
+                    <div id="commDesc" class="detail_pc"><%-goods.goods_desc%></div>
+
+                </div>
+                <div class="detail_item p_prop" id="detail1">
+                    <div>
+                        <div class="mod_tit_line">
+                            <h3>商品参数</h3>
+                        </div>
+
+                        <div id="detParam">
+                            <table class="param_table">
+                                <% goods.goods_para.forEach(function(item){ %>
                                 <tr>
-                                    <td>${attrs.attribute.attr_name}</td>
-                                    <td>${attrs.attr_value}</td>
+                                    <td><%=item.para_name%></td>
+                                    <td><%=item.para_value%></td>
                                 </tr>
-                            </c:if>
-                        </c:forEach>
-                    </table>
-                </div>
+                                <% }) %>
+                            </table>
+                        </div>
 
+                    </div>
+                </div>
             </div>
         </div>
-        &lt;!&ndash; 购买记录&ndash;&gt;
-        <div class="detail_item p_cmt" id="detail2">
+        <div class="btn_wrap btn_wrap_fixed" add="btn_wrap_nocart" id="btnTools" style="">
+            <div class="notice_tip" id="statusNotice" style="display: none;">
+                <span id="statusNote"></span>
+            </div>
+            <a class="btn_fav btn_fav_checked>" href="javascript:;" id="fav" target="_top"><i>收藏</i></a>
+            <div class="btn_col">
+                    <% if(goods.goods_number>0){ %>
+                    <a class="btn btn_cart" href="javascript:;" id="addCart2">加入购物车</a>
+                    <a class="btn btn_buy" href="javascript:;" id="buyBtn2">立即购买</a>
+                    <% }else{ %>
+                    <a class="btn btn_other btn_buy_disabled " href="javascript:;" id="g_nocart">售罄</a>
+                    <% } %>
+            </div>
 
-            <div></div>
-
+            <a class="cart_wrap" onclick="location='/shop/cart/shopcart.do'">
+                <i class="i_cart" id="cartNum" num="0"></i> <span class="cart"></span>
+                <span class="add_num" id="popone">+1</span>
+            </a>
         </div>
     </div>
 </div>
-&lt;!&ndash; btn_wrap_nocart &ndash;&gt;
-<div class="btn_wrap btn_wrap_fixed" add="btn_wrap_nocart" id="btnTools" style="">
-    <div class="notice_tip" id="statusNotice" style="display: none;">
-        <span id="statusNote"></span>
-    </div>
-    <a class="btn_fav<c:if test="${isCollect >0}"> btn_fav_checked</c:if>"
-        href="javascript:;" id="fav" target="_top"><i>收藏</i></a>
-    <div class="btn_col">
-        <c:if test="${goods.goods_number == 0}">
-            <a class="btn btn_other btn_buy_spec" href="javascript:;"
-               id="g_tongzhi">到货通知</a>
-        </c:if>
-        <c:if test="${goods.goods_number == -1}">
-            <a class="btn btn_other btn_buy_spec " href="javascript:;"
-               id="g_yuyue">立即预约</a>
-        </c:if>
-        <c:if test="${goods.goods_number == -2}">
-            <a class="btn btn_other btn_buy_disabled " href="javascript:;"
-               id="g_nocart">售罄</a>
-        </c:if>
-        <c:if test="${goods.goods_number > 0}">
-            <a class="btn btn_other" href="javascript:;" id="buyBtnExp"
-               style="display: none" manualclick="xxx">立即购买</a>
-            <a class="btn btn_cart" href="javascript:;" id="addCart2">加入购物车</a>
-            <a class="btn btn_buy" href="javascript:;" id="buyBtn2">立即购买</a>
-        </c:if>
 
-    </div>
+<script src="/javascripts/common.js"></script>
+<script>
+    var buyNum = $('#buyNum').attr('value');
+    $('#plus').on('click',function(){
+        buyNum++;
+        $('#buyNum').attr('value',buyNum);
+        $('#minus').removeClass('minus_disabled');
+        goods.goods_num = buyNum;
 
-    <a class="cart_wrap" onclick="location='/shop/cart/shopcart.do'">
-        <i class="i_cart" id="cartNum" num=" "></i> <span class="cart"></span>
-        <span class="add_num" id="popone">+1</span>
-    </a>
-</div>
+    });
+    $('#minus').on('click',function(){
+        if(buyNum<1){
+            return false;
+        }else if(buyNum==1){
+            $('#minus').addClass('minus_disabled');
+        }else if(buyNum>1){
+            buyNum--;
+            $('#buyNum').attr('value',buyNum);
+            goods.goods_num = buyNum;
+        }
+    });
 
-</div>
-</div>
-&lt;!&ndash;part_main end&ndash;&gt;
+    var width = $(window).width();
+    $('#detailTab span').each(function(){
+        $(this).click(function(){
+            var no = $(this).attr('no');
+            var height = $('#detail'+no+'').height();
+            $(this).addClass('cur');
+            $(this).siblings().removeClass('cur');
+            $('#detailCont').css({'transform':'translate('+(-(width*no))+'px,0px)','height':height});
+        });
+    });
 
-<div class="wx_wrap" id="promoteGoods" style="display: none">
-    &lt;!&ndash; S 促销 &ndash;&gt;
-    <div class="coupon_des" id="couponBlock1">
-        <p>购拍搭线优惠</p>
-    </div>
-    &lt;!&ndash; E 促销 &ndash;&gt;
-    <div class="filter_res">
-        <div id="searchResBlock">
-            &lt;!&ndash;  <p class="filter_tips" id="sFound">
-            将球线加入购物车<span class="num">共 <span id="totResult">78</span> 件商品</span>
-        </p>
-&ndash;&gt;
-            &lt;!&ndash; 一栏/两栏 切换 pro_type_list/pro_type_grid &ndash;&gt;
+    $("#fav").on('click',function(){
 
-            <div class="pro_list pro_type_list" id="itemList"></div>
-        </div>
-    </div>
-</div>
--->
+        if($(this).hasClass("btn_fav_checked")){
+            postapi("/shop/collectGoods/deleteCollectGoods.do",{"goods_id":getUrlParameterByName("goods_id"), "cart_ids":""},unCollectSuccess, {obj:$(this),user_id:user_id});
+            //$(this).addClass("btn_fav_checked");
+        }else{
+            postapi("/shop/collectGoods/addCollectGoods.do",{"goods_ids":getUrlParameterByName("goods_id"), "cart_ids":""},collectSuccess, {obj:$(this),user_id:user_id});
+            //$(this).removeClass("btn_fav_checked");
+        }
+    });
+
+    function collectSuccess(data, params){
+        params.obj.addClass("btn_fav_checked");
+        alert_Display("收藏成功");
+    }
+
+    function unCollectSuccess(data, params){
+        params.obj.removeClass("btn_fav_checked");
+        alert_Display("取消成功");
+    }
+
+</script>
 </body>
