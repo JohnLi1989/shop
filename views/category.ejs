@@ -1,0 +1,50 @@
+<% include layout %>
+<link rel="stylesheet" href="/stylesheets/category.css">
+<div class="hd_bar">
+    <form action="###" class="hd_search_frm" onsubmit="return false;">
+        <input type="search" class="hd_search_txt"id="topSearchTxt" placeholder="比女友更亲密">
+        <a class="hd_search_clear" href="javascript:;" id="topSearchClear" style="display: none;">x</a>
+    </form>
+    <div class="hd_me">
+        <div>
+            <a href="javascript:" id="topSearchbtn" class="hd_search_btn_blue" style="display:none;">搜索</a>
+            <a href="javascript:" id="topSearchCbtn" class="hd_search_btn" style="display:none">取消</a>
+        </div>
+    </div>
+
+</div>
+
+<div id="smartboxBlock" style="display:none;"><div class="search_panel_wrapper" dtab="s-tab" style="display:none;"><div class="search_panel_title"><div class="text">最近搜索</div><div class="title_btn" dtab="s-btn" rd="7095.8.1">清除</div></div><div class="search_panel_con two_row" dtab="s-row"></div><div class="search_panel_title"><div class="text">热门搜索</div><div class="title_btn" dtab="c-btn" rd="7095.8.2">换一批</div></div><div class="search_panel_con" dtab="s-tag"></div></div><div class="s_row" dtab="smartWrap" style="display:none;"> </div></div>
+<div class="wx_loading2" style="display: none;"><i class="wx_loading_icon"></i></div>
+<div class="wx_wrap" style="height: 690px;">
+
+    <div id="yScroll1" style="overflow: hidden; position: fixed; top: 45px; left: 0px; width: 65px; background-color: rgb(243, 243, 243);">
+        <ul class="category1" id="allcontent" style="border-bottom-style: none; transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 1200ms; transform: translate(0px, 0px) translateZ(0px);">
+            <% roots.forEach(function(item){ %>
+            <li class="" catname="<%=item.cat_name%>">
+                <%=item.cat_name%>
+            </li>
+            <% }) %>
+
+        </ul>
+    </div>
+    <div id="yScroll2" style="overflow: hidden; position: absolute; top: 45px; left: 65px;">
+        <div style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+            <dl class="category2" id="category2">
+                <c:forEach items="${secCats}" var="seccat">
+                    <dt><a href="/shop/goods/goodsList.do?catLevel=${seccats.catLevel}&catId=${seccats.cat_id}">${seccat.cat_name}</a></dt>
+                    <dd>
+                        <c:forEach items="${seccat.childCats}" var="thirdcat">
+                            <a href="/shop/goods/goodsList.do?catLevel=${thirdcat.catLevel}&catId=${thirdcat.cat_id}"><img src="${thirdcat.cat_img}" alt="">
+                                <span class="tit">${thirdcat.cat_name}</span>
+                            </a>
+                        </c:forEach>
+                    </dd>
+
+                </c:forEach>
+            </dl>
+        </div>
+    </div>
+</div>
+
+</body>
