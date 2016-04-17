@@ -22,8 +22,15 @@ exports.sendSmsCode = function(req,res){
         }
     });
 }
-exports.checkUser = function(req,res,next){
-    var mobile = req.query.mobile;
+exports.checkUser = function(req,res){
+    var mobile = req.body.mobile;
+    
+    UserModel.getUser(mobile,function(err,users){
+        if(users.length>0){
+            return res.json({ret:2});
+        }
+
+    });
 }
 exports.register = function(req,res){
     var mobile = req.body.mobile;
@@ -31,7 +38,6 @@ exports.register = function(req,res){
     var smscode = req.body.smscode;
     var code = req.session.smscode;
     var reg_time = Date.now();
-    console.log(mobile+'...'+smscode +',,,'+code);
     var md5 = crypto.createHash('md5');
     var new_pass = md5.update(pass).digest('base64');
 

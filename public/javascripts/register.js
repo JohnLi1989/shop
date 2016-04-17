@@ -81,37 +81,21 @@ function validMobile(){
         }
     }
     $.ajax({
-        'url'  : '/shop/users/checkMobile.do',
+        'url'  : '/user/check',
         'data' : {
             "mobile" : mobile
         },
         "type": 'POST',
         "dataType" : "json",
         success : function(data) {
-            if (data.ret>=0) {
                 if (data.ret == 2) {
                     hideAllError();
                     $('#mobileError').html(mobilePrompt.error.beUsed);
                     $('#mobileError').show();
                     _mobileMap[mobile] = data;
                     return false;
-                }else if(data.ret == 3){
-                    hideAllError();
-                    showError("mobile", mobilePrompt.isNull);
-                    _mobileMap[mobile] = data;
-                    return false;
-                }else if (data.ret == 1) {
-                    hideAllError();
-                    showError("mobile", mobilePrompt.error.badFormat);
-                    _mobileMap[mobile] = data;
-                    return false;
-                }else if (data.ret == 0) {
-                    hideAllError();
-                    _mobileMap[mobile] = data;
-                    return true;
                 }
-            }
-            return true;
+                return true;
         }
     });
 }
@@ -300,21 +284,22 @@ function submitForm(){
         type :'post',
         dataType : "json",
         success : function(data) {
-            if(data.ret==1){
+            if(data.msg=='SUCCESS'){
                 betSuccess5("注册成功!","确认",function(){
-                    location=data.data;
-                },{})
-            }else{
-                if(data.ret==-2){
+                    location.href="/list/Burn系列";
+                },{});
+            }else if(data.ret==-2){
                     $('#smsCodeError').html('验证码不正确');
                     $('#smsCodeError').show();
                     return;
-                }else if(data.ret==-1){
+            }else if(data.ret==-1){
                     $('#mobileError').html('手机号已存在');
                     $('#mobileError').show();
                     return;
-                }
             }
+        },
+        error:function(){
+            console.log(11111);
         }
     });
 };

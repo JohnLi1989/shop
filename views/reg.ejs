@@ -1,12 +1,14 @@
 <% include layout %>
 <link rel="stylesheet" href="/stylesheets/sign.css">
+<link rel="stylesheet" href="/stylesheets/tishi.css">
+<link rel="stylesheet" href="/stylesheets/dialog.css">
+
 <body id="body">
 
 <div class="jd_wrap">
     <!-- S 表单 -->
     <div class="jd_form">
         <form action="/user/reg" method="post" id="registerForm">
-
             <ul>
                 <li><p id="mobileError" style="display:none;color:red;font-size:15px;"></p></li>
                 <li><p id="passwordError" style="display:none;color:red;font-size:15px;"></p></li>
@@ -28,21 +30,12 @@
                 <a href="javascript:void(0);" id="sub_btn" class="code_btn" onclick="sendSmsCode()">获取验证码</a>
                 <span id="second" class="code_btn" style="display:none;"></span>
             </div>
-            <button class="btn" type="button" value="注册并绑定" id="submitForm">确认</button>
+            <button class="btn" type="button" value="注册" id="submitForm">确认</button>
 
         </form>
     </div>
-    <!-- S 弹出层 -->
-    <div class="pop_success" style="display: none ">
-        <div class="mod_alert">
-            <i class="icon icon_success"></i>
-            <p>绑定成功！</p>
-            <p class="btns">
-                <a href="javascript:void(0);" class="btn btn_1" onclick="goBack('$weidianurl')">确认</a>
-            </p>
-        </div>
-    </div>
-    <!-- E 弹出层 -->
+
 </div>
+<script src="/javascripts/dialog.js"></script>
 <script src="/javascripts/register.js"></script>
 </body>
