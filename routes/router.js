@@ -3,6 +3,7 @@ var router = express.Router();
 var goods = require('../controllers/goods');
 var category = require('../controllers/category');
 var user = require('../controllers/user');
+var auth = require('../middlewares/auth');
 /* GET home page. */
 router.get('/goods/:gid', goods.detail); //详情页
 router.get('/category',category.category); //分类页
@@ -12,5 +13,7 @@ router.get('/user/reg',function(req,res){res.render('reg')});   //用户注册�
 router.post('/user/check',user.checkUser); //检测是否注册
 router.post('/user/reg',user.register);  //提交注册
 router.post('/user/alidayu',user.sendSmsCode); //发送短信验证码;
-router.get('/user/login',function(req,res){res.render('login')});
+router.get('/user/login',function(req,res){res.render('login')}); //登录页
+router.post('/user/login',user.login); //登录
+router.get('/shopcart',auth.requireLogin,function(req,res){res.render('shopcart')});
 module.exports = router;

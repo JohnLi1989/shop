@@ -15,6 +15,9 @@ UserSchema.statics = {
     },
     createUser : function(user,cb){
         this.create(user,cb);
+    },
+    getOneUser:function(mobile,cb){
+        this.findOne({mobile:mobile},cb);
     }
 }
 var UserModel = mongoose.model('User',UserSchema);

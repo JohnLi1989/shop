@@ -55,6 +55,20 @@ exports.register = function(req,res){
             }
         });
     });
-
-    
+}
+exports.login = function(req,res){
+    var mobile = req.body.mobile;
+    var pass = req.body.pass;
+    var md5 = crypto.createHash('md5');
+    var new_pass = md5.update(pass).digest('base64');
+    UserModel.getOneUser(mobile,function(err,user) {
+        if (!user) {
+            return res.json({msg: "ERROR", ret: -1});
+        }
+        if(new_pass!==user.pass){
+            return res.json({msg:"ERROR",ret:-2});
+        }
+        res.json({msg:"SUCCESS",ret:1});
+        req.session.user = user;
+    });
 }

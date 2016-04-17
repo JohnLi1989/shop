@@ -15,27 +15,27 @@ function subLoginForm(){
         $('#passwordError').show();
         return;
     }
-    $.ajax()
-}
-function getResult(data, params){
-    if(data.msg=="SUCCESS"){
-        if(data.ret==1){
-            betSuccess5("登录成功!","确认",function(){
-                location=data.data;
-            },{})
+    $.ajax({
+        'url'  : '/user/login',
+        'data' : {"mobile" : loginName,"pass":password},
+        "type": 'POST',
+        "dataType" : "json",
+        success : function(data) {
+            console.log(data);
+            if(data.msg=="SUCCESS"){
+                betSuccess5("登录成功!","确认",function(){
+                    location=data.data;
+                },{});
+            }else if(data.ret==-1){
+                $('#loginNameError').html('用户名不存在');//用户名不存在
+                $('#loginNameError').show();
+            }else if(data.ret==-2){
+                $('#passwordError').html('密码不正确');//密码不正确
+                $('#passwordError').show();
+            }
         }
-        if(data.ret==-1){
-            $('#loginNameError').html('用户名不存在');//用户名不存在
-            $('#loginNameError').show();
-            return;
-        }else if(data.ret==-2){
-            $('#passwordError').html('密码不正确');//密码不正确
-            $('#passwordError').show();
-            return;
-        }
-    }
+    });
 }
-
 /**
  * 页面初始化操作
  */
