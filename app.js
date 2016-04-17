@@ -25,6 +25,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret:'johnli',
+  store : new RedisStore({
+    port:6379,
+    host:'127.0.0.1'
+  }),
+  resave:true,
+  saveUninitialized:true,
+  cookie:{maxAge:30*60*1000}
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

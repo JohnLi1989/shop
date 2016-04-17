@@ -25,7 +25,7 @@ GoodsSchema.statics = {
         this.findById(gid,cb);
     },
     getGoodsList : function(type,option,cb){
-        this.find({goods_type:type},option,cb);
+        this.find({goods_type:type},null,option,cb);
     }
 }
 

@@ -1,0 +1,50 @@
+@charset "UTF-8";a,button,input{-webkit-tap-highlight-color:transparent;outline:0}
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;vertical-align:baseline}
+img{border:0 none;-webkit-tap-highlight-color:rgba(0,0,0,0.2)}
+i,em{font-style:normal}
+ol,ul{list-style:none}
+input,select,button,h1,h2,h3,h4,h5,h6{font-size:100%;font-family:inherit}
+table{border-collapse:collapse;border-spacing:0}
+a{text-decoration:none;color:#333}
+body{margin:0 auto;min-width:320px;max-width:640px;height:100%;background:#FFF;font-size:14px;font-family:Helvetica,STHeiti STXihei,Microsoft JhengHei,Microsoft YaHei,Arial;line-height:1.5;color:#666;-webkit-text-size-adjust:100%;-webkit-user-select:none;-ms-user-select:none;user-select:none}
+input[type="text"],input[type="password"],input[type="tel"],input[type="submit"]{-webkit-appearance:none}
+.labels,.code input,.code img,.code .code_btn,.btn,.mod_alert{border-radius:3px;-webkit-border-radius:3px}
+.jd_form{padding:0 10px}
+.labels{border:1px solid #ddd;margin:15px 0}
+.labels .label{position:relative;display:block;height:40px;padding:0 10px 0 70px;line-height:40px;border-top:1px solid #ddd}
+.labels .label:first-child{border:0}
+.labels .label span{position:absolute;left:0;display:block;width:65px;text-align:right}
+.labels .label input{width:100%;height:100%;border:0}
+.code{position:relative;padding-right:145px;margin:15px 0}
+.code input{display:block;width:100%;height:40px;padding:0 10px;border:1px solid #ddd}
+.code img,.code .code_btn{position:absolute;right:0;top:0;display:block;width:110px;height:40px;border:1px solid #ddd;background:#f3f3f3;line-height:40px;text-align:center}
+.btn{display:block;width:100%;height:40px;margin:15px 0;background:#3985ff;color:#fff;border:0}
+.links{padding:15px 0;text-align:center}
+.links a{margin:0 10px}
+.links .color_green{color:#18c461}
+.checkbox{margin:15px 0;display:block}
+.checkbox input{margin-right:10px;vertical-align:-2px}
+.text{font-size:12px;margin:5px 0}
+.mod_alert{z-index:9999;top:10%;left:25%;width:250px;margin:80px auto 0;padding:15px 0;background:rgba(0,0,0,0.8);color:#fff;text-align:center}
+.mod_alert .icon{display:block;width:50px;height:50px;margin:0 auto;background:url(http://static.paipaiimg.com/wx/img/common/mod_alert.png);background-size:50px 200px}
+.mod_alert .icon_fail{background-position:0 -50px}
+.mod_alert .icon_wait{background-position:0 -100px}
+.mod_alert .icon_success{background-position:0 -150px}
+.mod_alert p{margin:8px 0;padding:0 10px}
+.mod_alert p.small{font-size:12px}
+.mod_alert p em{color:#c9101e}
+.mod_alert .btn{display:inline-block;width:100px;height:40px;margin:5px 2px 0;line-height:40px;background:#f3f3f3;color:#333;border-radius:3px;-webkit-border-radius:3px}
+.mod_alert .btn.disabled{background:#666;color:#fff}
+.mod_alert .btn_1{background:#3985ff;color:#fff}
+.mod_alert .disabled span{margin-left:5px;color:red}
+.mod_alert .btns{display:box;display:-ms-box;display:-webkit-box;display:flex;display:-ms-flexbox;display:-webkit-flex}
+.mod_alert .btns .btn{display:block;flex:1;-ms-flex:1;-webkit-flex:1;box-flex:1;-ms-box-flex:1;-webkit-box-flex:1;display:block}
+.pop_success{background-color:rgba(0,0,0,0.6);position:fixed;top:0;left:0;bottom:0;right:0;width:100%;height:100%;z-index:10}
+.pop_inner{border-radius:4px;background-color:#e7e7e7;width:288px;height:188px;border:1px solid rgba(0,0,0,0.7);margin:auto;position:absolute;top:0;left:0;right:0;bottom:0}
+.pop_tit{height:124px}
+.pop_tit .success{font-size:14px;line-height:28px;height:48px;color:#000;width:100%;margin:0 auto;padding:35px}
+.pop_tit .success:before{content:"";display:block;float:left;width:28px;height:28px;margin-right:10px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAAA3CAMAAACfBSJ0AAABgFBMVEVttjw8lwtVsQgkjQtcsRdNrAAyhQJsrHNVqDdMqwDY4dlIpwDS39NFoANJqQBKnFJ1vENCngRLqwCXwpxEngK50rwodQLj5uIBgQ5RrgI1iAApjDTE1cMUgyGoyKsViAw9mi9+tYOIq3m3zreYtIy1yK5BnARjtSIFexKdxKE6kwVOrgABeQ8zkwxBnQNWrRcPhBlOrAAslRhBmUtOqgZSrA5yuzs/nAUukwjF2MY+nSRInzMtjjg/mgVEoABmtiivxKcnjDM/l0kNfxg4jQI1eRVms0BNpStJowbn5+c+mAhHpQA/mwY/mgdKqABGogFIpQBHowE/mQhLqQBAnQVGowE+mQhEnwSXtItGogA9mgXH2ck/nwPQ3NFAnw43mhFcsCU4mwXg4+BKoTVZqjBHoxhLqACgxqVfsxoYihzJ2sxsuDFFoQM0lidIpQRKqAEpkSdGoghvrnVklU8/mgI1lwWfupQ+mAQ/mQerzK95omk1mAVxsHilxqji5+BGowCSg7w0AAADRElEQVR42pXW+1uaUBjA8ZOHSJsNXUniJSwrj+3YTSs1ygq7sFq1rda638uyK7u0ttb+9YEgggG670+cw/k8Pj09wAsEk5rPn6hgGGEUDlLiebPZEfBix93J4btx55xHbs45foe5TndN56NwZM4zWszFCgWiUIjliqOeuQimfLYuk7xweooxwuFgmLdyDONwELGix3mRzFi6dhEdj+YIh0IqMQ4iN3qMntrNXSYYATmiGqmUyIFIMGPmHvnxoqQazZNkcZx/fOlakTPmsFIl6Yg5UWu1a8UnBWao0a4hpnCCW43uEZ0QTGOtGOIEPerdJT9PDLlqN0TM85cV185l62IyzHLtmhOvC/UxCRauxbLLoIPUm3pLHaCM6pLZEVet43maDkzKF66RbFJxvkHC9cm+1UDXszA12y9fu4hBX8lR2dRr+xYDX+S/qYcsrVJZSnZuPHC2bJvKBIEuLc8GsFtyncOpOtmz4pZTw52S405vX9n1t8yErryyc3vKCaAZj9iyTY11B8p7I7gZxC9S9bLN8mbqIg7EYTs2qWOTle1hEVD7q9ZNBrorTLe/T4Hg3qJlBqa/sRcE4fv/Z4v3YYAWPljUpmNtxlsLCOCbdbVvJE3n17UMbN3YDQboakXpYXZKeO4KtKlLA1up6gqB8I56TfboD9mylZ0wCB5eKdHqMdIrLbykxkrrqg6DgEq3KNHP5YP9Lf061t/ysjQFRKhe57sqR2uwFiiCOLuhpjusYxtmsXHgxuVFr3Y8pLFeU7aB3dLz99urNqbBMhvzmvadk5931msOLZmXlZ/3XVzZmNDBbnLCgnnxbul9Bte0KvAHObFmESy9z4Sof00PlQd1in6wYmv+qPK+noEGKP8fo3SfJYMz2vdha0wX+UsI0X1jVm2hkPY9Ypf0kV9n80uWsdr3SDjioOFW309rBrmjyvd2m4fv6wvy2/rvewdK18XSqKN6nkh/rF26ep6Q5xf4uVbw5fwiCH94+M4+yHeYzWehabbBRjWw0yHzefCoCVn/JERNR5bzp2/Gby6hf8ZnO+9GKcwmGowlWExFa87Xu9J87WdhQtaJBGT90ny9W8dcLs/zcVGa53nMh6eTTXHTef4fELePoNrftAcAAAAASUVORK5CYII=) no-repeat;background-size:cover;-webkit-background-size:cover}
+.pop_tit .fail{font-size:14px;line-height:28px;height:48px;color:#000;width:100%;margin:0 auto;padding:35px}
+.pop_tit .fail:before{content:"";display:block;float:left;width:28px;height:28px;margin-right:10px;background-size:cover;-webkit-background-size:cover}
+.pop_opt{border-top:1px solid #ccc;height:42px;padding:10px 15px}
+.pop_btn{font-size:14px;height:42px;line-height:42px;text-align:center;background-color:#f8f8f8;background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#f8f8f8),color-stop(100%,#f2f2f2));background-image:-webkit-linear-gradient(top,#f8f8f8 0,#f2f2f2 100%);background-image:-webkit-gradient(linear,left top,left bottom,from(#f8f8f8),to(#f2f2f2));background-image:linear-gradient(to bottom,#f8f8f8 0,#f2f2f2 100%);border:1px solid #c8c8c8;border-radius:6px;width:100%}

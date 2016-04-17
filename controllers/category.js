@@ -3,6 +3,7 @@
  */
 var CategoryModel = require('../models/category');
 var eventproxy = require('eventproxy');
+
 exports.category = function(req,res){
     var ep = new eventproxy();
     var cat = req.query.cat;

@@ -11,158 +11,8 @@ function getUrlParameterByName(name) {
     return results === null ? '': decodeURIComponent(results[1].replace(/\+/g, ' '))
 }
 
-//登录
-function reLogin(){
-    var openid=getUrlParameterByName("openid");
-    var uri2 = window.location.href.split("#")[0];
-    var path = uri2.split("?")[0];
-    var query = uri2.split("?")[1];
-    uri3 = path + (query ? ("?" + encodeURI(query)) : "");
-    var uri2="http://www.taimo.cn/2015/open.php?rurl="+encodeURIComponent(uri3);
-    if(openid==""||openid==null||openid==undefined){
-        location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3399d58ba73af906&redirect_uri="+encodeURIComponent(uri2)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
-    }
-}
-
-function isWeiXin(){
-    var ua = window.navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-        return true;
-    }else{
-        return false;
-    }
-}
-
 //ajax 提交参数获取数据
-function postapi4(url,mtparmas) {
-    $.ajax({
-        type :"POST",
-        url:url,
-        data:mtparmas,
-        success: function (data) {
-            if(data=='loseSession'){
-                alert_Display("页面已过期");
-                setTimeout(function(){
-                    location=location;
-                },1500);
-            }else{
-                hdsuccess(data);
-            }
-        },
-        error: function (data) {
-            if(data.responseText=='loseSession'){
-                alert_Display("页面已过期");
-                setTimeOut(function(){
-                    location=location;
-                },1500);
-            }
-        }
-    });
-}
 
-var arr=['/shop/users/toLogin.do','/shop/users/toRegister.do','/shop/users/checkMobile.do','/shop/users/getSms.do',
-    '/shop/goods/goodsDetailAjax.do','/shop/goods/goodsListAjax.do'];
-
-//ajax带回调函数提交数据
-//ajax 提交参数获取数据
-/*function postapi(url, mtparmas, callback, extra) {
- var is_weixin=isWeiXin();
- var user_id=extra.user_id;
- var uri2 = window.location.href.split("#")[0];
- var path = uri2.split("?")[0];
- var query = uri2.split("?")[1];
- uri3 = path + (query ? ("?" + encodeURI(query)) : "");
- if(in_array(url,arr)){
- $.ajax({
- type :"POST",
- url:url,
- data:mtparmas,
- success: function (data) {
- if(data=='loseSession'){
- alert_Display("页面已过期");
- setTimeout(function(){
- location=location;
- },1500);
- }else{
- callback(data, extra);
- }
- },
- error: function (data) {
- console.log(data);
- if(data.responseText=='loseSession'){
- alert_Display("页面已过期");
- setTimeOut(function(){
- location=location;
- },1500);
- }
- }
- });
- }else{
- if(user_id==""||user_id==null){
- if(is_weixin){
- var host="http://"+location.host;
- var uri2="http://www.taimo.cn/2015/open.php?rurl="+encodeURIComponent(host+"/shop/users/login.do?rurl="+encodeURIComponent(uri3));
- location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3399d58ba73af906&redirect_uri="+encodeURIComponent(uri2)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
- }else{
- var host="http://"+location.host;
- var uri2=host+"/shop/users/login.do?rurl="+encodeURIComponent(uri3);
- location.href=uri2;
- }
- }else{
- $.ajax({
- type :"POST",
- url:url,
- data:mtparmas,
- success: function (data) {
- if(data=='loseSession'){
- alert_Display("页面已过期");
- setTimeout(function(){
- location=location;
- },1500);
- }else{
- callback(data, extra);
- }
- },
- error: function (data) {
- console.log(data);
- if(data.responseText=='loseSession'){
- alert_Display("页面已过期");
- setTimeOut(function(){
- location=location;
- },1500);
- }
- }
- });
- }
- }
- }*/
-
-/*function postapi(url, mtparmas, callback, extra) {
- $.ajax({
- type :"POST",
- url:url,
- data:mtparmas,
- success: function (data) {
- if(data=='loseSession'){
- alert_Display("页面已过期");
- setTimeout(function(){
- location=location;
- },1500);
- }else{
- callback(data, extra);
- }
- },
- error: function (data) {
- console.log(data);
- if(data.responseText=='loseSession'){
- alert_Display("页面已过期");
- setTimeOut(function(){
- location=location;
- },1500);
- }
- }
- });
- }*/
 function postapi(url, mtparmas, callback, extra) {
     $.ajax({
         type :"POST",
@@ -190,36 +40,11 @@ function postapi(url, mtparmas, callback, extra) {
         }
     });
 }
-function checkLogin(){
-    var is_weixin=isWeiXin();
-    var uri2 = window.location.href.split("#")[0];
-    var path = uri2.split("?")[0];
-    var query = uri2.split("?")[1];
-    uri3 = path + (query ? ("?" + encodeURI(query)) : "");
-    if(is_weixin){
-        var host="http://"+location.host;
-        var uri2="http://www.taimo.cn/2015/open.php?rurl="+encodeURIComponent(host+"/shop/users/login.do?rurl="+encodeURIComponent(uri3));
-        location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3399d58ba73af906&redirect_uri="+encodeURIComponent(uri2)+"&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
-    }else{
-        var host="http://"+location.host;
-        var uri2=host+"/shop/users/login.do?rurl="+encodeURIComponent(uri3);
-        location.href=uri2;
-    }
-}
 
 //时间格式转换
 function getLocalTime(nS) {
     var time = new Date(nS);
     return time.getFullYear() + "年" + (time.getMonth() + 1) + "月" + time.getDate() + "日 " + time.getHours() + "点" + time.getMinutes() + "分";
-}
-
-//跳转
-function raceDetail(raceId){
-    location.href="/tm/index/detail.do?yueId="+raceId;
-}
-//修改
-function editDetail(raceId){
-    location.href="/tm/index/createActivity.do?yueId="+raceId;
 }
 
 //时间格式转换2
@@ -242,36 +67,6 @@ function DateDiff(date) {
     return result;
 }
 
-// 跳转到详细页面
-function raceDetail(raceId,createrOpenId){
-    /*if(createrOpenId==openid){
-     location.href="/tm/index/mydetail.do?yueId="+raceId;
-     }else{
-     location.href="/tm/index/detail.do?yueId="+raceId;
-     }*/
-    location.href="/tm/index/detail.do?yueId="+raceId;
-}
-
-//设置状态
-function setStatus(status,peoplenum,signedPeopleNum){
-    if(status==0){
-        $("#status").val("报名中");
-    }else if(status==1){
-        $("#status").val("停止报名");
-    }else if(status==2){
-        $("#status").val("已结束");
-    }
-}
-//引导分享
-/*$("#share").on("tap",function(){
- $("#share").removeClass("in");
- });*/
-
-//跳到我的详细页面
-function raceMyDetail(raceId){
-    //location.href="/tm/index/mydetail.do?yueId="+raceId;
-    location.href="/tm/index/detail.do?yueId="+raceId;
-}
 
 //提示框
 function alert_Show(title,content,yes,url){
@@ -411,12 +206,6 @@ dateFormat = function (date, format) {
     return format;
 }
 
-//下拉框选择事件
-/*$(".selects").change(function(){
- v = $(this).find("option:selected").text();
- $(this).prev(".input_bg").html(v);
-
- })*/
 
 function in_array(stringToSearch, arrayToSearch) {
     for (s = 0; s < arrayToSearch.length; s++) {

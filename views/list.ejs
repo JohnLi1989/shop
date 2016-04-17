@@ -1,5 +1,6 @@
 <% include layout %>
 <link rel="stylesheet" href="/stylesheets/list.css">
+<body>
 <div class="wrap">
         <div class="mod_fixed_wrapper in" id="sortBlock">
             <!-- mod_filter_fixed -->
@@ -8,41 +9,41 @@
                     <a href="javascript:" class="no_icon select" sort-type="default">默认</a>
                     <a href="javascript:" class="" sort-type="price" mark="1">价格<i class="icon_sort" rd="0-2-2"></i></a>
                     <a href="javascript:" class="state_switch" sort-type="sale">销量<i class="icon_sort_single"></i></a>
-                    <a href="javascript:" class="state_switch" sort-type="comment">人气<i class="icon_sort_single"></i></a>
                     <a href="javascript:" class="switch" sort-type="listmode"><i class="icon_switch"></i></a>
                 </div>
             </div>
         </div>
         <!-- 一栏/两栏 切换 pro_type_list/pro_type_grid -->
         <div class="pro_list pro_type_list" id="itemList">
-            <c:forEach items="${goodsList}" var="goodslist">
-                <c:if test="${goodslist.goods_number <= 0}">
-                    <div class="pro_item tmp_soldout" price="${goodslist.shop_price}" salenum="${goodslist.salesnum}" clickcount="${goodslist.click_count}" onClick="window.location.href='/shop/goods/goodsDetail.do?goods_id=${goodslist.goods_id}'">
-                </c:if>
-                <c:if test="${goodslist.goods_number > 0}">
-                    <div class="pro_item" price="${goodslist.shop_price}" salenum="${goodslist.salesnum}" clickcount="${goodslist.click_count}" onClick="window.location.href='/shop/goods/goodsDetail.do?goods_id=${goodslist.goods_id}'">
-                </c:if>
+            <% goods.forEach(function(item){ %>
+                <% if(item.goods_number<=0){ %>
+                    <div class="pro_item tmp_soldout" price="<%=item.shop_price%>" salenum="<%=item.sale_number%>" onClick="window.location.href='/goods/<%=item._id%>'">
+                <% } %>
+                <% if(item.goods_number>0){ %>
+                    <div class="pro_item" price="<%=item.shop_price%>" salenum="<%=item.sale_number%>" onClick="window.location.href='/goods/<%=item._id%>'">
+                <% } %>
                 <div class="item_inner">
                     <div class="cover">
-                        <img class="photo" src="${goodslist.goods_thumb}" onload="speedTimePoint[4]=new Date();" >
+                        <img class="photo" src="<%=item.goods_thumb%>" >
                     </div>
                     <div class="info">
-                        <div class="title" >${goodslist.goods_name}<font class="skcolor_ljg">${goodslist.seo_title}</font></div>
+                        <div class="title" ><%=item.goods_name%><font class="skcolor_ljg"><%=item.goods_brief%></font></div>
                         <div class="price">
                             <strong >
-                                <em id="dp_J_1832782">¥${goodslist.shop_price}</em>
+                                <em id="dp_J_1832782">¥<%=item.shop_price%></em>
                             </strong>
-                            <i class="zx_wx">省${goods.wx_price}元</i>
+                            <i class="zx_wx">省<%=item.market_price-item.shop_price%>元</i>
                                             <span
                                                     class="tag"></span>
                         </div>
                         <div class="other text_small">
-                            <span class="comment_num"><span id="com_1832782">已售出${goodslist.salesnum}件</span></span>
+                            <span class="comment_num"><span id="com_1832782">已售出<%=item.sale_number%>件</span></span>
                         </div>
                     </div>
                 </div>
+            <% }) %>
         </div>
-        </c:forEach>
+
     </div>
     <div class="wx_loading2 hide" id="loadingLogo"> <i class="wx_loading_icon"></i>
     </div>
@@ -50,5 +51,61 @@
 
 </div>
 </div>
+<script>
+    var descSale = function(a,b){
+        return parseInt($(a).attr('salenum')) > parseInt($(b).attr('salenum')) ? -1 : 1;
+    }
+    var descPrice = function(a,b){
+        return parseInt($(a).attr('price')) > parseInt($(b).attr('price')) ? -1 : 1;
+    }
+    var ascPrice = function(a,b){
+        return parseInt($(a).attr('price')) > parseInt($(b).attr('price')) ? 1 : -1;
+    }
 
+    var sortList = function(sortBy){
+        var list = $('.pro_item').sort(sortBy);
+        $('#itemList').empty().append(list);
+    }
+    $("[sort-type='default']").click(function(){
+        $(this).addClass('select');
+        $(this).siblings().removeClass('select');
+        $("[sort-type='price']").removeClass('state_switch');
+        location.reload();
+    });
+    $("[sort-type='sale']").click(function(){
+        $(this).addClass('select');
+        $(this).siblings().removeClass('select');
+        $("[sort-type='price']").removeClass('state_switch');
+        sortList(descSale);
+    });
+
+    var count1=0;
+    var count2=0;
+    $("[sort-type='price']").click(function(){
+        if(count1%2==0){
+            $(this).addClass('select').removeClass('state_switch');
+            $(this).siblings().removeClass('select');
+            sortList(ascPrice);
+        }else{
+            $(this).addClass('select');
+            $(this).addClass('state_switch');
+            $(this).siblings().removeClass('select');
+            sortList(descPrice);
+        }
+
+        count1++;
+    });
+    $("[sort-type='listmode']").click(function(){
+
+        if(count2%2==0){
+            $(this).addClass('state_switch');
+            $('#itemList').removeClass('pro_type_list').addClass('pro_type_grid');
+        }else{
+            $(this).removeClass('state_switch');
+            $('#itemList').removeClass('pro_type_grid').addClass('pro_type_list');
+        }
+
+        count2++;
+    });
+</script>
 </body>
