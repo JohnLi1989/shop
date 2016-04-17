@@ -36,7 +36,14 @@ app.use(session({
   cookie:{maxAge:30*60*1000}
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(function(req,res,next){
+  app.locals.user = req.session.user;
+  next();
+});
+app.use(function(req,res,next){
+  app.locals.smscode = req.session.smscode;
+  next();
+});
 app.use('/', routes);
 
 // catch 404 and forward to error handler

@@ -165,10 +165,10 @@ function sendSmsCode() {
     }
     var mobile = $('#mobile').val();
     $.ajax({
-        'url' : "/user/alidayu",
-        'data' : {'mobile':mobile},
-        "type" :'POST',
-        "dataType" : "json",
+        url : "/user/alidayu",
+        data : {'mobile':mobile},
+        type :'post',
+        dataType : "json",
         success : function(data) {
             console.log(data);
             hideAllError();
@@ -182,7 +182,7 @@ function sendSmsCode() {
                         function() {
                             var left = Math.ceil(60 - (new Date().getTime() - timestamp) / 1000);
                             if (left > 0) {
-                                $('#second').html('\u91cd\u65b0\u83b7\u53d6(' + left + '\u79d2)');
+                                $('#second').html('重新获取(' + left + '秒)');
                             } else {
                                 $("#sub_btn").show();
                                 $("#sub_btn").attr("disabled", false);
@@ -291,37 +291,34 @@ function submitForm(){
     if(!chkSmsCode()){
         return false;
     }
-    $.ajax
+    var mobile = $('#mobile').val();
+    var pass = $('#password').val();
+    var smscode = $('#mobile_code').val();
+    $.ajax({
+        url : "/user/reg",
+        data : {mobile:mobile,pass:pass,smscode:smscode},
+        type :'post',
+        dataType : "json",
+        success : function(data) {
+            if(data.ret==1){
+                betSuccess5("注册成功!","确认",function(){
+                    location=data.data;
+                },{})
+            }else{
+                if(data.ret==-2){
+                    $('#smsCodeError').html('验证码不正确');
+                    $('#smsCodeError').show();
+                    return;
+                }else if(data.ret==-1){
+                    $('#mobileError').html('手机号已存在');
+                    $('#mobileError').show();
+                    return;
+                }
+            }
+        }
+    });
 };
 
-function result(data, params){
-    if(data.msg=="SUCCESS"){
-        if(data.ret==1){
-            betSuccess5("注册成功!","确认",function(){
-                location=data.data;
-            },{})
-        }else if(data.ret==2){
-            betSuccess5("注册且绑定成功!","确认",function(){
-                location=data.data;
-            },{})
-        }
-        localStorage.setItem("cart","[]");
-    }else{
-        if(data.ret==-1){
-            $('#mobileError').html('手机号格式不对');//用户名不存在
-            $('#mobileError').show();
-            return;
-        }else if(data.ret==-2){
-            $('#smsCodeError').html('验证码不正确');//密码不正确
-            $('#smsCodeError').show();
-            return;
-        }else if(data.ret==-3){
-            $('#mobileError').html('手机号已存在');//密码不正确
-            $('#mobileError').show();
-            return;
-        }
-    }
-}
 
 $(function() {
     focusHideMsg();

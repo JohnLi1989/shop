@@ -9,6 +9,14 @@ var UserSchema = new mongoose.Schema({
 
 });
 
+UserSchema.statics = {
+    getUser : function(mobile,cb){
+        this.find({mobile:mobile},cb);
+    },
+    createUser : function(user,cb){
+        this.create(user,cb);
+    }
+}
 var UserModel = mongoose.model('User',UserSchema);
 
 module.exports = UserModel;
