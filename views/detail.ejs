@@ -245,7 +245,7 @@
     $("#addCart").click(function(){
         var goods_id = $(this).attr('goodsid');
         $.ajax({
-            url:'/goods/addToCart',
+            url:'/cart/addToCart',
             data:{goods_id:goods_id},
             type:'post',
             dataType:'json',

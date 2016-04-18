@@ -2,7 +2,15 @@
  * Created by john on 16/4/17.
  */
 var totalPrice = 0 ;
-    //全选按钮
+function noGoodsInCart(){
+    if($('#list').find('div.section').html() == 0){
+        $('#normalEmpty').show();
+        $('#mainViewFoot').hide();
+        $('#listContent').hide();
+        $('#editContent').hide();
+    }
+}
+//全选按钮
 $('#checkAllBtn .icon_select').on('click',function(){
     if(!$(this).parent().hasClass('selected')){
         totalPrice = 0;
@@ -34,28 +42,34 @@ $('#confirm').on('click',function(){
     var selectedArray = [];
     $('.cart_goods').each(function(){
         if($(this).find('div.goods').hasClass('selected')==true){
-            selectedArray.push($(this).attr('recid'));
+            selectedArray.push($(this).attr('goodsid'));
             $(this).remove();
             $('#dialogConent').hide();
             $('.mask').hide();
             totalPrice = 0;
         }
     });
-    var cartIds = selectedArray.join(',');
-    postapi("/shop/cart/deleteCart.do",{cart_ids:cartIds},delSuccess,{'user_id':user_id});
+    var goods_ids = selectedArray.join(',');
+    $.ajax({
+        url:'/cart/delFromCart',
+        data:{goods_ids:goods_ids},
+        type:'post',
+        dataType:'json',
+        success:function(){
+            noGoodsInCart();
+            alert_Display("删除成功！");
+            $('#totalPrice').html('0');
+            $('#chooseAll').parent().removeClass('selected');
+            $('#totalNum').html('0');
+            $('#editBtn').trigger('click');
+        }
+    });
 });
 $('#cancel').on('click',function(){
     $('#dialogConent').hide();
     $('.mask').hide();
 });
-function delSuccess(data){
-    noGoodsInCart();
-    alert_Display("删除成功！");
-    $('#totalPrice').html('0');
-    $('#chooseAll').parent().removeClass('selected');
-    $('#totalNum').html('0');
-    $('#editBtn').trigger('click');
-}
+
 //移至收藏夹
 $('#addFavor').on('click',function(){
     if($('.cart_goods').find('div.selected').length == 0){

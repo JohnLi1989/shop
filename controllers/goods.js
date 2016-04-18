@@ -42,37 +42,4 @@ exports.list = function(req,res){
     });
 }
 
-exports.addToCart = function(req,res){
 
-    var user_id = req.session.user._id;
-    var goods_id = req.body.goods_id;
-    var cart = {user_id:user_id,goods_id,goods_id};
-    CartModel.getOneGoods(cart,function(err,goods){
-       if(goods){
-           return res.json({ret:-1});
-       }
-        CartModel.addGoods(cart,function(err,result){
-            if(result){
-                res.json({ret:1});
-            }
-        });
-    });
-}
-exports.cartList = function(req,res){
-    var user_id = req.session.user._id;
-    var cart = {user_id:user_id};
-    CartModel.getGoods(cart,function(err,goods){
-       if(!goods){
-           return res.render('shopcart',{goods:null});
-       }
-        var goods_ids = [];
-        for(var k in goods){
-            goods_ids.push(goods[k].goods_id);
-        }
-        GoodsModel.getByGoodsId(goods_ids,function(err,goods){
-           if(goods){
-               res.render('shopcart',{goods:goods});
-           }
-        });
-    });
-}

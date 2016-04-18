@@ -11,8 +11,8 @@ CartSchema.statics = {
     getGoods : function(cart,cb){
         this.find(cart,cb);
     },
-    delGoods : function(){
-
+    delGoods : function(user_id,goods_ids,cb){
+        this.remove({user_id:user_id,goods_id:goods_ids},cb);
     },
     addGoods : function(cart,cb){
         this.create(cart,cb);

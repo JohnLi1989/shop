@@ -4,19 +4,20 @@
 <body>
 <div id="content" style="width:100%;">
     <div class="wx_wrap" id="wrapper">
-        <div id="editContent" class="address_bar_wrap fixed">
+        <div id="editContent" class="address_bar_wrap fixed" style="display:<% if(!goods){ %>none<% } %>">
             <div class="address_bar">
                 <span class="btn" id="editBtn">编辑</span>
             </div>
         </div>
-        <% if(goods){ %>
-        <div id="listContent" style="position: absolute; width: 100%; top: -35px; transform: translateY(0px);">
+
+        <div id="listContent" style="display:<% if(!goods){ %>none<% } %>;position: absolute; width: 100%; top: -35px; transform: translateY(0px);">
             <div id="list">
                 <div class="cart_refresh" id="pullDown">
                     <div class="icon"><i id="pullDownIC" class=""></i></div>
                     <p id="pullDownLabel">下拉刷新购物车</p>
                 </div>
                 <div class="section">
+                    <% if(goods){ %>
                     <% goods.forEach(function(item){ %>
                     <div class="item cart_goods" goodsid="<%=item._id%>">
                         <div class="goods_wrap">
@@ -42,12 +43,12 @@
                         </div>
                     </div>
                     <% }) %>
+                    <% } %>
                 </div>
             </div>
         </div>
-        <% }else{ %>
         <div id="emptyContent">
-            <div class="shopcart_none" id="normalEmpty" style="position:relative;padding-top:1px">
+            <div class="shopcart_none" id="normalEmpty" style="display:<% if(goods){ %>none<% } %>;position:relative;padding-top:1px">
                 <i class="icon"></i>
                 <p class="title">您的购物车内还没有商品！</p>
                 <div class="mod_btns">
@@ -56,9 +57,8 @@
                 </div>
             </div>
         </div>
-        <% } %>
     </div>
-    <div id="mainViewFoot">
+    <div id="mainViewFoot" style="display:<% if(!goods){ %>none<% } %>">
         <div class="fixBar" name="checkgroup" id="checkAllBtn">
             <i class="icon_select" id="chooseAll">全选</i>
             <div class="total" id="totalConfirmDiv">
