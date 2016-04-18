@@ -37,7 +37,7 @@ app.use(session({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req,res,next){
-  app.locals.user = req.session.user;
+  res.locals.user = req.session.user;
   next();
 });
 app.use(function(req,res,next){

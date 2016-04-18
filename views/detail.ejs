@@ -170,14 +170,14 @@
             <a class="btn_fav btn_fav_checked>" href="javascript:;" id="fav" target="_top"><i>收藏</i></a>
             <div class="btn_col">
                     <% if(goods.goods_number>0){ %>
-                    <a class="btn btn_cart" href="javascript:;" id="addCart2">加入购物车</a>
-                    <a class="btn btn_buy" href="javascript:;" id="buyBtn2">立即购买</a>
+                    <a class="btn btn_cart" href="javascript:;" id="addCart" goodsid="<%=goods._id%>">加入购物车</a>
+                    <a class="btn btn_buy" href="javascript:;" id="buyBtn" goodsid="<%=goods._id%>">立即购买</a>
                     <% }else{ %>
                     <a class="btn btn_other btn_buy_disabled " href="javascript:;" id="g_nocart">售罄</a>
                     <% } %>
             </div>
 
-            <a class="cart_wrap" onclick="location='/shop/cart/shopcart.do'">
+            <a class="cart_wrap" onclick="location='/shopcart'">
                 <i class="i_cart" id="cartNum" num="0"></i> <span class="cart"></span>
                 <span class="add_num" id="popone">+1</span>
             </a>
@@ -192,7 +192,6 @@
         buyNum++;
         $('#buyNum').attr('value',buyNum);
         $('#minus').removeClass('minus_disabled');
-        goods.goods_num = buyNum;
 
     });
     $('#minus').on('click',function(){
@@ -203,7 +202,6 @@
         }else if(buyNum>1){
             buyNum--;
             $('#buyNum').attr('value',buyNum);
-            goods.goods_num = buyNum;
         }
     });
 
@@ -238,6 +236,56 @@
         params.obj.removeClass("btn_fav_checked");
         alert_Display("取消成功");
     }
+
+    $("#addCart").click(function(){
+        var goods_id = $(this).attr('goodsid');
+        $.ajax({
+            url:'/goods/addToCart',
+            data:{goods_id:goods_id},
+            type:'post',
+            dataType:'json',
+            success:function(d){
+                console.log(d);
+                if(d.ret==-1){
+                    alert_Display("已存在于购物车");
+                }else{
+                    $("#cartNum").attr("num",parseInt($("#cartNum").attr("num"))+1);
+                    $("#popone").addClass("show");
+                    setTimeout(function(){$("#popone").removeClass("show");},1500);
+                    alert_Display("加入成功");
+                }
+            }
+        });
+    });
+    /*function getSuccess(data){
+        if(data.ret == -1){
+            alert_Display(data.data);
+            return false;
+        }
+
+    }
+    if(user_id==""){
+        var num=0;
+        for(var i=0;i<cart.length;i++){
+            num+=cart[i].goods_num;
+        }
+        if(num==0){
+            $("#cartNum").attr("num",0);
+        }else{
+            $("#cartNum").attr("num",num);
+        }
+    }else{
+        postapi("/shop/cart/getGoodsNum.do",{'goods':JSON.stringify(goods)},getNumSuccess, {'user_id':user_id});
+    }
+
+    function getNumSuccess(data){
+        var num=data.data;
+        if(num==0){
+            $("#cartNum").attr("num",0);
+        }else{
+            $("#cartNum").attr("num",num);
+        }
+    }*/
 
 </script>
 </body>

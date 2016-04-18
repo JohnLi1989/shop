@@ -68,7 +68,8 @@ exports.login = function(req,res){
         if(new_pass!==user.pass){
             return res.json({msg:"ERROR",ret:-2});
         }
-        res.json({msg:"SUCCESS",ret:1});
         req.session.user = user;
+        res.json({msg:"SUCCESS",ret:1});
+
     });
 }

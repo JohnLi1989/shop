@@ -24,7 +24,7 @@ function subLoginForm(){
             console.log(data);
             if(data.msg=="SUCCESS"){
                 betSuccess5("登录成功!","确认",function(){
-                    location=data.data;
+                    location="/shopcart";
                 },{});
             }else if(data.ret==-1){
                 $('#loginNameError').html('用户名不存在');//用户名不存在
