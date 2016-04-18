@@ -9,25 +9,54 @@
                 <span class="btn" id="editBtn">编辑</span>
             </div>
         </div>
+        <% if(goods){ %>
         <div id="listContent" style="position: absolute; width: 100%; top: -35px; transform: translateY(0px);">
             <div id="list">
                 <div class="cart_refresh" id="pullDown">
                     <div class="icon"><i id="pullDownIC" class=""></i></div>
                     <p id="pullDownLabel">下拉刷新购物车</p>
                 </div>
-                <div class="section"></div>
+                <div class="section">
+                    <% goods.forEach(function(item){ %>
+                    <div class="item cart_goods" goodsid="<%=item._id%>">
+                        <div class="goods_wrap">
+                            <div class="goods" price="<%=item.shop_price%>"><i onclick="goods_select(this);" class="icon_select"></i>
+                                <a href="/goods/<%=item._id%>" class="link">
+                                   <img class="image" src="<%=item.goods_thumb%>" width="80" height="80" />
+                                </a>
+                                <div class="content" attr-href="/goods/<%=item._id%>" onclick="see_goods(this);"><p class="name"><%=item.goods_name%></p>
+                                    <p class="price">¥<span><%=item.shop_price%></span></p>
+                                    <div class="action"> <a href="javascript:void(0);" class="action_fav">
+                                        <span>移至收藏</span></a>
+                                        <a href="javascript:void(0);" class="action_delete"><span>删除</span></a>
+                                   </div>
+                                    <a href="#" class="btn" style="display:none">到货通知我</a>
+                                    <p class="tips"></p>
+                                </div>
+                                <div class="num_wrap">
+                                    <span class="minus" onclick="minus_number(this);"></span>
+                                    <input class="num" type="tel" value="1">
+                                   <span class="plus" onclick="plus_number(this);"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
             </div>
         </div>
+        <% }else{ %>
         <div id="emptyContent">
-            <div class="shopcart_none" id="normalEmpty" style="display:block;position:relative;padding-top:1px">
+            <div class="shopcart_none" id="normalEmpty" style="position:relative;padding-top:1px">
                 <i class="icon"></i>
                 <p class="title">您的购物车内还没有商品！</p>
                 <div class="mod_btns">
                     <a href="/users/me" class="mod_btn">个人中心</a>
-                    <a href="/shop/goods/promotion.do" class="mod_btn" id="rego">立即逛逛</a>
+                    <a href="" class="mod_btn" id="rego">立即逛逛</a>
                 </div>
             </div>
         </div>
+        <% } %>
     </div>
     <div id="mainViewFoot">
         <div class="fixBar" name="checkgroup" id="checkAllBtn">

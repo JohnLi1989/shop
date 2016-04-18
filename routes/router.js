@@ -15,7 +15,8 @@ router.post('/user/reg',user.register);  //提交注册
 router.post('/user/alidayu',user.sendSmsCode); //发送短信验证码;
 router.get('/user/login',function(req,res){res.render('login')}); //登录页
 router.post('/user/login',user.login); //登录
-router.get('/shopcart',auth.requireLogin,function(req,res){res.render('shopcart')}); //购物车页
-router.post('/goods/addToCart',goods.addToCart); //加入购物车
+router.get('/shopcart',auth.requireLogin,goods.cartList); //购物车页
+router.post('/goods/addToCart',auth.requireLogin,goods.addToCart); //加入购物车
+//router.post('/goods/delFromCart',auth.requireLogin,goods.delFromCart);  //从购物车移除
 
 module.exports = router;

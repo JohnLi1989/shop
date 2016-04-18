@@ -8,8 +8,8 @@ var CartSchema = new mongoose.Schema({
 });
 
 CartSchema.statics = {
-    getGoods : function(){
-
+    getGoods : function(cart,cb){
+        this.find(cart,cb);
     },
     delGoods : function(){
 
