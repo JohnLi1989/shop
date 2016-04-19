@@ -197,7 +197,7 @@ function plus_number(num){
     var goodsId = $(num).parents('.cart_goods').attr('goodsid');
     var goodsAttr = $(num).siblings('p').html();
     var cartId = $(num).parents('.cart_goods').attr('recid');
-    postapi("/shop/cart/modifyGoodsNumber.do",{goods_id:goodsId,goods_attr:goodsAttr,goods_number:buyNum,cart_id:cartId},lowStock,{'user_id':user_id,'price':thisPrice});
+    //postapi("/shop/cart/modifyGoodsNumber.do",{goods_id:goodsId,goods_attr:goodsAttr,goods_number:buyNum,cart_id:cartId},lowStock,{'user_id':user_id,'price':thisPrice});
     if(flag == true){
         $(num).siblings('.num').attr('value',buyNum);
     }
@@ -219,7 +219,7 @@ function minus_number(num){
         var goodsId = $(num).parents('.cart_goods').attr('goodsid');
         var goodsAttr = $(num).siblings('p').html();
         var cartId = $(num).parents('.cart_goods').attr('recid');
-        postapi("/shop/cart/modifyGoodsNumber.do",{goods_id:goodsId,goods_attr:goodsAttr,goods_number:buyNum,cart_id:cartId},lowStock,{'user_id':user_id,'price':thisPrice});
+        //postapi("/shop/cart/modifyGoodsNumber.do",{goods_id:goodsId,goods_attr:goodsAttr,goods_number:buyNum,cart_id:cartId},lowStock,{'user_id':user_id,'price':thisPrice});
         /* if($(num).parents('.goods').hasClass('selected')){
          var minusPrice = $(num).parents('.goods').attr('price');
          totalPrice -= minusPrice;

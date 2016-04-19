@@ -1,0 +1,55 @@
+<% include layout %>
+<link rel="stylesheet" href="/stylesheets/tishi.css">
+<link rel="stylesheet" href="/stylesheets/fav.css">
+<body>
+<div class="wx_wrap">
+
+    <div class="collect_title">
+        共收藏 <span class="co_red" id="fav_total_num"><%=goods.length%></span> 件商品
+        <a class="action" id="edit_btn" href="javascript:;" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">编辑</a>
+    </div>
+    <div class="wx_loading2" id="loadingPanel_pre" style="display: none;">
+        <i class="wx_loading_icon"></i>
+    </div>
+    <ul id="favlist" class="mod_list collect_list">
+        <% if(goods){ %>
+        <% goods.forEach(function(item){ %>
+            <li commid="306764" class="" index="0" page="1">
+                <div class="list_inner">
+                    <div class="photo">
+                        <a href="/goods/<%=item.goods_id%>"><img src="<%=item.goods_thumb%>" alt=""></a>
+                    </div>
+                    <div class="info" onclick="location='/goods/<%=item.goods_id%>'">
+                        <p class="title">
+                            <%=item.goods_name%>
+                        </p>
+                        <p class="sku" style="display:block">
+                            <%=item.goods_brief%>
+                        </p>
+                        <p class="sku" id="price_306764" shopid="0"  favprice="19" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                            <span class="price">¥<%=item.shop_price%></span>
+                        </p>
+                    </div>
+                    <div shopid="0" goods_id="${collect.goods.goods_id}" class="del_btn"></div>
+                </div>
+            </li>
+        <% }) %>
+        <% } %>
+    </ul>
+    <div class="collect_null" style="display: <% if(goods){ %>none<% } %>;" id="no_goods_fav">
+        您还未收藏任何商品
+    </div>
+</div>
+<div class="wx_loading2" id="loadingPanel" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1); display: none;">
+    <i class="wx_loading_icon"></i>
+</div>
+
+<div id="dialogConent" class="mod_alert fixed">
+        <i class="icon"></i>
+        <p> 确认取消收藏该商品？</p><p class="btns">
+        <a href="javascript:;" class="btn btn_1" id="confirm">确认</a>
+        <a href="javascript:;" class="btn" id="cancel">取消</a>
+        </p>
+        </div>
+        <div class="mask"></div>
+</body>

@@ -167,7 +167,7 @@
             <div class="notice_tip" id="statusNotice" style="display: none;">
                 <span id="statusNote"></span>
             </div>
-            <a class="btn_fav btn_fav_checked>" href="javascript:;" id="fav" target="_top"><i>收藏</i></a>
+            <a class="btn_fav ui-link>" href="javascript:;" id="fav" target="_top" goodsid="<%=goods._id%>"><i>收藏</i></a>
             <div class="btn_col">
                     <% if(goods.goods_number>0){ %>
                     <a class="btn btn_cart" href="javascript:;" id="addCart" goodsid="<%=goods._id%>">加入购物车</a>
@@ -222,25 +222,31 @@
     });
 
     $("#fav").on('click',function(){
-
-        if($(this).hasClass("btn_fav_checked")){
-            postapi("/shop/collectGoods/deleteCollectGoods.do",{"goods_id":getUrlParameterByName("goods_id"), "cart_ids":""},unCollectSuccess, {obj:$(this),user_id:user_id});
-            //$(this).addClass("btn_fav_checked");
+        var goods_id = $(this).attr('goodsid');
+        if(!$(this).hasClass("btn_fav_checked")){
+            $.ajax({
+                url:'/fav/addToFav',
+                data:{goods_ids:goods_id},
+                type:'post',
+                dataType:'json',
+                success:function(d){
+                    $('#fav').addClass("btn_fav_checked");
+                    alert_Display("收藏成功");
+                }
+            });
         }else{
-            postapi("/shop/collectGoods/addCollectGoods.do",{"goods_ids":getUrlParameterByName("goods_id"), "cart_ids":""},collectSuccess, {obj:$(this),user_id:user_id});
-            //$(this).removeClass("btn_fav_checked");
+            $.ajax({
+                url:'/fav/delFromFav',
+                data:{goods_ids:goods_id},
+                type:'post',
+                dataType:'json',
+                success:function(d){
+                    $('#fav').removeClass("btn_fav_checked");
+                    alert_Display("取消成功");
+                }
+            });
         }
     });
-
-    function collectSuccess(data, params){
-        params.obj.addClass("btn_fav_checked");
-        alert_Display("收藏成功");
-    }
-
-    function unCollectSuccess(data, params){
-        params.obj.removeClass("btn_fav_checked");
-        alert_Display("取消成功");
-    }
 
     $("#addCart").click(function(){
         var goods_id = $(this).attr('goodsid');
