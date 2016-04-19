@@ -70,44 +70,7 @@ $('#cancel').on('click',function(){
     $('.mask').hide();
 });
 
-//移至收藏夹
-$('#addFavor').on('click',function(){
-    if($('.cart_goods').find('div.selected').length == 0){
-        alert_Display("未选择商品");
-    }else{
-        $('#dialogConent2').show();
-        $('.mask').show();
-    }
-});
-$('#confirm2').on('click',function(){
-    var selectedFav = [];
-    var selectedFavCart = [];
-    $('.cart_goods').each(function(){
-        if($(this).find('div.goods').hasClass('selected')==true){
-            selectedFav.push($(this).attr('goodsid'));
-            selectedFavCart.push($(this).attr('recid'));
-            $(this).remove();
-            $('#dialogConent2').hide();
-            $('.mask').hide();
-            totalPrice = 0;
-        }
-    });
-    var goodsIds = selectedFav.join(',');
-    var cartIds = selectedFavCart.join(',');
-    postapi("/shop/collectGoods/addCollectGoods.do",{goods_ids:goodsIds,cart_ids:cartIds},favSuccess,{'user_id':user_id});
-});
-$('#cancel2').on('click',function(){
-    $('#dialogConent2').hide();
-    $('.mask').hide();
-});
-function favSuccess(){
-    alert_Display("收藏成功！");
-    noGoodsInCart();
-    $('#totalPrice').html('0');
-    $('#chooseAll').parent().removeClass('selected');
-    $('#totalNum').html('0');
-    $('#editBtn').trigger('click');
-}
+
 //去结算
 $('#shopCartConfirm').on('click',function(){
     if($('.cart_goods').find('div.selected').length == 0){

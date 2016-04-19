@@ -17,9 +17,9 @@
             <li commid="306764" class="" index="0" page="1">
                 <div class="list_inner">
                     <div class="photo">
-                        <a href="/goods/<%=item.goods_id%>"><img src="<%=item.goods_thumb%>" alt=""></a>
+                        <a href="/goods/<%=item._id%>"><img src="<%=item.goods_thumb%>" alt=""></a>
                     </div>
-                    <div class="info" onclick="location='/goods/<%=item.goods_id%>'">
+                    <div class="info" onclick="location='/goods/<%=item._id%>'">
                         <p class="title">
                             <%=item.goods_name%>
                         </p>
@@ -30,7 +30,7 @@
                             <span class="price">¥<%=item.shop_price%></span>
                         </p>
                     </div>
-                    <div shopid="0" goods_id="${collect.goods.goods_id}" class="del_btn"></div>
+                    <div shopid="0" goods_id="<%=item._id%>" class="del_btn"></div>
                 </div>
             </li>
         <% }) %>
@@ -53,3 +53,51 @@
         </div>
         <div class="mask"></div>
 </body>
+<script>
+    if($('#favlist li').length == 0){
+        $('.collect_null').show();
+    }
+
+    $("#edit_btn").on('click',function(){
+        if($("#favlist").attr("class")=="mod_list collect_list"){
+            $("#favlist").attr("class","mod_list collect_list edit_mode");
+            $(this).html("完成");
+        }else{
+            $("#favlist").attr("class","mod_list collect_list");
+            $(this).html("编辑");
+        }
+    });
+
+    $(".del_btn").each(function(){
+        $(this).on('click',function(){
+            $('#dialogConent').show();
+            $('.mask').show();
+            var li = $(this).parents('li');
+            var goodsid = $(this).attr('goods_id');
+            var num = $('#fav_total_num').html();
+            $('#confirm').on('click',function(){
+                $.ajax({
+                    url:'/fav/delFromFav',
+                    data:{goods_id:goodsid},
+                    type:'post',
+                    dataType:'json',
+                    success:function(){
+                        $('#dialogConent').hide();
+                        $('.mask').hide();
+                        li.remove();
+                        alert_Display("取消成功！");
+                        $('#fav_total_num').html(num-1);
+                        if($('#favlist li').length == 0){
+                            $('.collect_null').show();
+                        }
+                    }
+                });
+            });
+            $('#cancel').on('click',function(){
+                $('#dialogConent').hide();
+                $('.mask').hide();
+            });
+
+        });
+    });
+</script>

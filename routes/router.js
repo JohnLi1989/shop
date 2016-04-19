@@ -23,7 +23,7 @@ router.post('/cart/delFromCart',auth.requireLogin,cart.delFromCart);  //从购�
 router.get('/favorite',auth.requireLogin,fav.favList); //收藏夹页
 router.post('/fav/addToFav',auth.requireLogin,fav.addToFav); //加入收藏
 router.post('/fav/delFromFav',auth.requireLogin,fav.delFromFav);  //取消收藏
-
-
+router.get('/user/me',auth.requireLogin,user.info); //用户页
+router.get('/user/address',auth.requireLogin,user.address);
 
 module.exports = router;

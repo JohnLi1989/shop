@@ -3,18 +3,18 @@
  */
 var GoodsModel = require('../models/goods');
 var CartModel = require('../models/cart');
-var FavModel = require('../models/favorite');
+var FavModel = require('../models/fav');
 var eventproxy = require('eventproxy');
 exports.detail = function(req,res){
     var gid = req.params.gid;
     var ep = new eventproxy();
     if(req.session.user){
-        ep.all('goods_success','count_success',function(goods,count){
-            res.render('detail',{goods:goods,count:count});
+        ep.all('goods_success','count_success','fav_success',function(goods,count,result){
+            res.render('detail',{goods:goods,count:count,result:result});
         });
     }else{
         ep.on('goods_success',function(goods){
-            res.render('detail',{goods:goods,count:0});
+            res.render('detail',{goods:goods,count:0,result:null});
         });
     }
     GoodsModel.getDetail(gid,function(err,goods){
@@ -25,6 +25,9 @@ exports.detail = function(req,res){
         var uid = req.session.user._id;
         CartModel.count({goods_id:gid,user_id:uid},function(err,count){
             ep.emit('count_success',count);
+        });
+        FavModel.getOneGoods({goods_id:gid,user_id:uid},function(err,result){
+               ep.emit('fav_success',result);
         });
     }
 }

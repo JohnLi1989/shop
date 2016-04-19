@@ -2,8 +2,11 @@
  * Created by john on 16/4/17.
  */
 var crypto = require('crypto');
+var eventproxy = require('eventproxy');
 var Alidayu = require('alidayu-node');
 var UserModel = require('../models/user');
+var CartModel = require('../models/cart');
+var FavModel = require('../models/fav');
 exports.sendSmsCode = function(req,res){
     var ali = new Alidayu("23347119","e6b36b511dd5391eb8f099e9bcb7fc98");
     var mobile = req.body.mobile;
@@ -71,5 +74,21 @@ exports.login = function(req,res){
         req.session.user = user;
         res.json({msg:"SUCCESS",ret:1});
 
+    });
+}
+exports.info = function(req,res){
+    var user_id = req.session.user._id;
+    var ep = new eventproxy();
+    ep.all('cart_count','fav_count','user_success',function(cart_count,fav_count,user){
+       res.render('me',{cart_count:cart_count,fav_count:fav_count,user:user});
+    });
+    CartModel.count({user_id:user_id},function(err,cart_count){
+        ep.emit('cart_count',cart_count);
+    });
+    FavModel.count({user_id:user_id},function(err,fav_count){
+        ep.emit('fav_count',fav_count);
+    });
+    UserModel.getUserById(user_id,function(err,user){
+       ep.emit('user_success',user);
     });
 }

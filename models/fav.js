@@ -11,8 +11,8 @@ FavSchema.statics = {
     getGoods : function(fav,cb){
         this.find(fav,cb);
     },
-    delGoods : function(user_id,goods_ids,cb){
-        this.remove({user_id:user_id,goods_id:goods_ids},cb);
+    delGoods : function(user_id,goods_id,cb){
+        this.remove({user_id:user_id,goods_id:goods_id},cb);
     },
     addGoods : function(user_id,goods_ids,cb){
         this.create({user_id:user_id,goods_id:goods_ids},cb);

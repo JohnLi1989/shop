@@ -27,12 +27,6 @@
                                 </a>
                                 <div class="content" attr-href="/goods/<%=item._id%>" onclick="see_goods(this);"><p class="name"><%=item.goods_name%></p>
                                     <p class="price">¥<span><%=item.shop_price%></span></p>
-                                    <div class="action"> <a href="javascript:void(0);" class="action_fav">
-                                        <span>移至收藏</span></a>
-                                        <a href="javascript:void(0);" class="action_delete"><span>删除</span></a>
-                                   </div>
-                                    <a href="#" class="btn" style="display:none">到货通知我</a>
-                                    <p class="tips"></p>
                                 </div>
                                 <div class="num_wrap">
                                     <span class="minus" onclick="minus_number(this);"></span>
@@ -66,20 +60,11 @@
                 <a href="javascript:;" class="btn_pay" id="shopCartConfirm">结算（<em id="totalNum">0</em>）</a>
             </div>
             <div class="btns" style="display:none" id="operateDiv">
-                <a href="javascript:;" class="btn_2" id="addFavor">移至收藏</a>
                 <a href="javascript:;" class="btn_3" id="deleteBtn">删除</a>
             </div>
         </div>
 
     </div>
-
-    <!-- ajax loading -->
-    <!--<div class="mod_alert mod_alert_loading fixed" id="wxloading">
-        <div class="wx_loading2">
-            <i class="wx_loading_icon"></i>
-        </div>
-    </div>-->
-    <!-- ajax loading end-->
 
     <div id="dialogConent" class="mod_alert fixed">
         <i class="icon"></i>
@@ -88,13 +73,7 @@
             <a href="javascript:;" class="btn" id="cancel">取消</a>
         </p>
     </div>
-    <div id="dialogConent2" class="mod_alert fixed">
-        <i class="icon"></i>
-        <p> 是否确认将已选中商品移至收藏？</p><p class="btns">
-            <a href="javascript:;" class="btn btn_1" id="confirm2">确认</a>
-            <a href="javascript:;" class="btn" id="cancel2">取消</a>
-        </p>
-    </div>
+
 </div>
 <div class="mask"></div>
 </div>

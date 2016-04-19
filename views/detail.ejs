@@ -167,7 +167,7 @@
             <div class="notice_tip" id="statusNotice" style="display: none;">
                 <span id="statusNote"></span>
             </div>
-            <a class="btn_fav ui-link>" href="javascript:;" id="fav" target="_top" goodsid="<%=goods._id%>"><i>收藏</i></a>
+            <a class="btn_fav ui-link <%if(result){%>btn_fav_checked<%}%>" href="javascript:;" id="fav" target="_top" goodsid="<%=goods._id%>"><i>收藏</i></a>
             <div class="btn_col">
                     <% if(goods.goods_number>0){ %>
                     <a class="btn btn_cart" href="javascript:;" id="addCart" goodsid="<%=goods._id%>">加入购物车</a>

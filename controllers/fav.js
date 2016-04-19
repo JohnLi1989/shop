@@ -1,9 +1,7 @@
 /**
  * Created by john on 16/4/19.
  */
-/**
- * Created by john on 16/4/18.
- */
+
 var GoodsModel = require('../models/goods');
 var FavModel = require('../models/fav');
 
@@ -35,9 +33,9 @@ exports.favList = function(req,res){
     });
 }
 exports.delFromFav = function(req,res){
-    var goods_ids = req.body.goods_ids.split(',');
+    var goods_id = req.body.goods_id;
     var user_id = req.session.user._id;
-    FavModel.delGoods(user_id,goods_ids,function(err,result){
+    FavModel.delGoods(user_id,goods_id,function(err,result){
         if(result){
             res.json({msg:"SUCCESS"});
         }

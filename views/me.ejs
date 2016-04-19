@@ -1,0 +1,58 @@
+<% include layout %>
+<link rel="stylesheet" href="/stylesheets/me.css">
+<body>
+
+<div class="wx_wrap">
+    <div id="wrapper" data-tag="wrapper" style="display: block;">
+        <!--用户信息-->
+        <header class="my_header" id="myHeader">
+
+            <div class="content">
+                <p class="name" id="userName"><%=user.mobile%>
+                    <span class="vip v1"></span>
+                </p>
+            </div>
+        </header>
+
+        <!--收藏内容-->
+        <div class="my_header_links">
+            <a href="/shopcart"><span id="cartNum"><%=cart_count%></span>购物车</a>
+            <a href="/favorite"><span id="goodsFav"><%=fav_count%></span>收藏的商品</a>
+        </div>
+
+        <!--订单信息-->
+        <section class="my_section">
+            <a href="/order" class="head head_order" id="allItem">我的订单<div class="order_count">0</div><span>全部订单</span></a>
+            <ul class="list list_order">
+                <li><a href="/order" class="item_1" id="payItem"><span>待付款</span></a></li>
+                <li><a href="/order" class="item_2" id="acceptItem"><span>待收货</span></a></li>
+                <li><a href="/order" class="item_3" id="commentItem"><span>待评价</span></a></li>
+            </ul>
+        </section>
+
+        <!--我的钱包-->
+        <div id="heighten">
+            <!--<section class="my_section  disabled" id="myWallet">-->
+            <section class="my_section" id="myWallet">
+                <a href="javascript:void(0);" class="head head_value">我的钱包</a>
+                <ul class="list list_value">
+                    <li><a href="javascript:;" id="beanItem">余额<strong>0</strong></a></li>
+                    <li><a href="javascript:;" id="couponItem">购物券<strong>0</strong></a></li>
+                </ul>
+                <div class="mod_blockTips" id="blockTips" style="display: none">
+                    <p id="tips">
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <section class="my_section" id="setting">
+            <a href="/user/address" class="head head_help">收货地址<span>设置</span></a>
+        </section>
+
+        <section class="my_section" id="history">
+            <a href="/category/?cat=网球拍" class="head head_help">随便逛逛</a>
+        </section>
+    </div>
+</div>
+</body>

@@ -18,6 +18,9 @@ UserSchema.statics = {
     },
     getOneUser:function(mobile,cb){
         this.findOne({mobile:mobile},cb);
+    },
+    getUserById:function(user_id,cb){
+        this.findById(user_id,cb);
     }
 }
 var UserModel = mongoose.model('User',UserSchema);
