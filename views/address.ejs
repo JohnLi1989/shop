@@ -1,0 +1,119 @@
+<% include layout %>
+<link rel="stylesheet" href="/stylesheets/address.css">
+<link rel="stylesheet" href="/stylesheets/tishi.css">
+<script src="http://static.alipayobjects.com/seajs/seajs/2.2.0/sea.js"></script>
+<body>
+<div id="content">
+    <div id="myAddress_list">
+        <div class="wx_bar">
+            <div class="wx_bar_back">
+                <a id="listPageback" href="javascript:void(0);"></a>
+            </div>
+            <div class="wx_bar_tit">收货地址</div>
+            <div class="wx_bar_act"> <a href="javascript:void(0);" class="wx_bar_new" style="display:none;" id="_new"></a> </div>
+        </div>
+        <div class="wx_wrap">
+            <div class="address_list" id="addressList" style="-webkit-transform-origin: 0px 0px; opacity: 1; -webkit-transform: scale(1, 1);">
+                <% if(address){ %>
+                <% address.forEach(function(item){ %>
+                    <div class="address">
+                        <ul adid="<%=item._id%>">
+                            <li><% if(item.isDefault){ %><span class="prefix">【默认】</span><% } %><%=item.province%><%=item.city%><%=item.direction%><%=item.address%></li>
+                            <li><strong><%=item.consignee%></strong><%=item.mobile%></li>
+                            <li class="edit" adid="<%=item._id%>"><a href="javascript:void(0);">编辑</a></li>
+                        </ul>
+                        <p class="act" delid="<%=item._id%>"><span class="del">删除</span></p>
+                    </div>
+                <% }) %>
+                <% } %>
+                <div class="address_list_link">
+                    <a href="javascript:void(0);" class="item item_new" id="new">新增收货地址</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myAddress_edit" style="display:none">
+        <div class="wx_bar">
+            <div class="wx_bar_back">
+                <a id="back" href="javascript:void(0);"></a>
+            </div>
+            <div class="wx_bar_tit">修改收货地址</div>
+        </div>
+        <div class="wx_wrap">
+            <div class="address_new">
+                <p><label for="name"><span class="tit">收货人</span><input type="text" id="name" name="name" value="" placeholder="名字"></label></p>
+                <p><label for="mobile"><span class="tit">手机号码</span><input id="mobile" name="mobile" value="" placeholder="手机号码"></label></p>
+                <p><label for="provinceId"><span class="tit rg">省份</span>
+                        <select id="provinceId_m" name="provinceId" onchange="region.changed(this, 2, 'cityId_m')">
+                            <option value="1">--选择省份--</option>
+                            <option value="2" >北京</option>
+                            <option value="3" >安徽</option>
+                            <option value="4" >福建</option>
+                            <option value="5" >甘肃</option>
+                            <option value="6" >广东</option>
+                            <option value="7" >广西</option>
+                            <option value="8" >贵州</option>
+                            <option value="9" >海南</option>
+                            <option value="10" >河北</option>
+                            <option value="11" >河南</option>
+                            <option value="12" >黑龙江</option>
+                            <option value="13" >湖北</option>
+                            <option value="14" >湖南</option>
+                            <option value="15" >吉林</option>
+                            <option value="16" >江苏</option>
+                            <option value="17" >江西</option>
+                            <option value="18" >辽宁</option>
+                            <option value="19" >内蒙古</option>
+                            <option value="20" >宁夏</option>
+                            <option value="21" >青海</option>
+                            <option value="22" >山东</option>
+                            <option value="23" >山西</option>
+                            <option value="24" >陕西</option>
+                            <option value="25" >上海</option>
+                            <option value="26" >四川</option>
+                            <option value="27" >天津</option>
+                            <option value="28" >西藏</option>
+                            <option value="29" >新疆</option>
+                            <option value="30" >云南</option>
+                            <option value="31" >浙江</option>
+                            <option value="32" >重庆</option>
+                            <option value="33" >香港</option>
+                            <option value="34" >澳门</option>
+                            <option value="35" >台湾</option>
+                            <option value="3409" >钓鱼岛</option>
+                        </select>
+                    </label></p>
+                <p><label for="cityId"><span class="tit rg">市</span>
+                        <select name="cityId" id="cityId_m" onchange="region.changed(this, 3, 'areaId_m')">
+                            <option value="">--选择城市--</option>
+                        </select>
+                    </label></p>
+                <p id="areaSelP"><label for="areaId"><span class="tit rg">区/县</span>
+                        <select name="areaId" id="areaId_m">
+                            <option value="">--选择县/区--</option>
+                        </select>
+                        <span id="updateTip2" style="color: red; display:none;">请选择区/县</span>
+                    </label></p>
+                <p id="townSelP" style="display: none;"><label for="townId"><span class="tit">乡镇/街道</span>
+                        <select name="townId" id="townId_m">
+                            <option></option>
+                        </select>
+                        <span id="updateTip" style="color: red;">请选择乡镇/街道</span></label></p>
+                <p><label for="adinfo"><span class="tit">详细地址</span><input id="adinfo" name="adinfo" value="" type="text" placeholder="详细地址"></label></p>
+                <div class="checkbox_select " id="defaultId">设为默认地址<span>（每次购买时会默认使用该地址）</span></div>
+                <p class="action"><button class="submit" id="editBtn">确认</button></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wx_loading" id="wxloading" style="display: none">
+    <div class="wx_loading_inner">
+        <i class="wx_loading_icon"></i>
+        请求加载中...
+    </div>
+</div>
+<script src="/javascripts/jquery.hash.js"></script>
+<script src="/javascripts/address.js"></script>
+<script src="/javascripts/jsonDB.js"></script>
+<script src="/javascripts/region.js"></script>
+</body>

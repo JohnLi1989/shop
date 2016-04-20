@@ -6,6 +6,7 @@ var user = require('../controllers/user');
 var cart = require('../controllers/cart');
 var fav = require('../controllers/fav');
 var auth = require('../middlewares/auth');
+var address = require('../controllers/address');
 /* GET home page. */
 router.get('/goods/:gid', goods.detail); //详情页
 router.get('/category',category.category); //分类页
@@ -24,6 +25,7 @@ router.get('/favorite',auth.requireLogin,fav.favList); //收藏夹页
 router.post('/fav/addToFav',auth.requireLogin,fav.addToFav); //加入收藏
 router.post('/fav/delFromFav',auth.requireLogin,fav.delFromFav);  //取消收藏
 router.get('/user/me',auth.requireLogin,user.info); //用户页
-router.get('/user/address',auth.requireLogin,user.address);
+router.get('/user/address',auth.requireLogin,address.addressList); //用户地址
+router.post('/address/addAddress',auth.requireLogin,address.addAddress); //新增地址
 
 module.exports = router;
