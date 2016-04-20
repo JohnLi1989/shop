@@ -6,11 +6,26 @@
         $("#wxloading").show();
         $.hash().set("myAddress", "edit").remove("address_id").location("?");
     });
-
+    $('.edit').click(function(){
+        $.hash().set({
+            myAddress: 'edit',
+            address_id: $(this).attr("adid")
+        }).location("?");
+    });
     $.hash().listen("myAddress","address_id", function(neo, old){
-        if(neo.myAddress=="edit"&&neo.address_id>0){
+        if(neo.myAddress=="edit"&&neo.address_id){
             $("#wxloading").show();
-           // postapi("/shop/userAddress/addressEdit.do",{'address_id':neo.address_id},getSuccess, {'user_id':user_id});
+            $.ajax({
+                url:'/address/getAddress',
+                type:'post',
+                data:{
+                    address_id:neo.address_id
+                },
+                dataType:'json',
+                success:function(data){
+                    getSuccess(data);
+                }
+            });
         }else if(neo.myAddress=="edit"&&neo.address_id==undefined){
             emptyData();
             $("#wxloading").hide();
@@ -29,7 +44,6 @@
             $("#myAddress_edit").hide();
             $("#myAddress_list").show();
         }
-
     });
     if($.hash().get("myAddress")=='edit'&&$.hash().get("address_id")==undefined){
         emptyData();
@@ -38,16 +52,26 @@
         $("#myAddress_list").hide();
     }else if($.hash().get("myAddress")=='edit'&&$.hash().get("address_id")>0){
         $("#wxloading").show();
-       // postapi("/shop/userAddress/addressEdit.do",{'address_id':$.hash().get("address_id")},getSuccess, {'user_id':user_id});
+        $.ajax({
+            url:'/address/editAddress',
+            type:'post',
+            data:{
+                address_id:$.hash().get("address_id")
+            },
+            dataType:'json',
+            success:function(data){
+                getSuccess(data);
+            }
+        });
     }
 
-
     function getSuccess(data){
+        console.log(data);
         data=data.data;
         $("#name").val(data.consignee);
         $("#mobile").val(data.mobile);
         $("#adinfo").val(data.address);
-        if(data.is_default){
+        if(data.isDefault){
             $("#defaultId").removeClass('selected').addClass('selected');
         }else{
             $("#defaultId").removeClass('selected');
@@ -76,8 +100,6 @@
         $("#areaId_m").empty();
         $("#areaId_m").prepend('<option value="">--选择县/区--</option>');
         $("#defaultId").removeClass('selected');
-        //$("#cityId_m").find("option[value='"+city+"']").prop("selected",true);
-        //$("#areaId_m").find("option[value='"+district+"']").prop("selected",true);
     }
 
     $('#defaultId').on('click',function(){
@@ -109,19 +131,20 @@
             alert_Display("请填写您的详细地址~");
             return false;
         }
-        /*var isChangeDefaultAddress = 0;
-        if(isDefault!=$("#defaultId").hasClass('selected')){
-            isChangeDefaultAddress = 1;
-        }*/
+
         $("#wxloading").show();
         $.ajax({
-            url:'/address/addAddress',
+            url:'/address/editAddress',
             type:'post',
             data:{
+                "address_id":$.hash().get("address_id"),
                 "consignee":$("#name").val(),
                 "province":$("#provinceId_m").find("option:selected").text(),
                 "city":$("#cityId_m").find("option:selected").text(),
                 "district":$("#areaId_m").find("option:selected").text(),
+                "province_v":$("#provinceId_m").find("option:selected").val(),
+                "city_v":$("#cityId_m").find("option:selected").val(),
+                "district_v":$("#areaId_m").find("option:selected").val(),
                 "mobile":$("#mobile").val(),
                 "address":$("#adinfo").val(),
                 'isDefault':$("#defaultId").hasClass('selected')?true:false,

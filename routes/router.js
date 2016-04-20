@@ -26,6 +26,7 @@ router.post('/fav/addToFav',auth.requireLogin,fav.addToFav); //加入收藏
 router.post('/fav/delFromFav',auth.requireLogin,fav.delFromFav);  //取消收藏
 router.get('/user/me',auth.requireLogin,user.info); //用户页
 router.get('/user/address',auth.requireLogin,address.addressList); //用户地址
-router.post('/address/addAddress',auth.requireLogin,address.addAddress); //新增地址
+router.post('/address/editAddress',auth.requireLogin,address.editAddress); //新增或修改地址
+router.post('/address/getAddress',auth.requireLogin,address.getAddress); //修改前得到地址
 
 module.exports = router;
