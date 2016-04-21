@@ -158,19 +158,20 @@ function plus_number(num){
     var buyNum = $(num).siblings('.num').attr('value');
     buyNum++;
     var goodsId = $(num).parents('.cart_goods').attr('goodsid');
-    var goodsAttr = $(num).siblings('p').html();
-    var cartId = $(num).parents('.cart_goods').attr('recid');
-    //postapi("/shop/cart/modifyGoodsNumber.do",{goods_id:goodsId,goods_attr:goodsAttr,goods_number:buyNum,cart_id:cartId},lowStock,{'user_id':user_id,'price':thisPrice});
+    $.ajax({
+        url:'/cart/modifyGoodsNumber',
+        type:'post',
+        data:{goods_id:goodsId,goods_number:buyNum},
+        dataType:'json',
+        success:function(data){
+            lowStock(data,thisPrice)
+        }
+
+    });
     if(flag == true){
         $(num).siblings('.num').attr('value',buyNum);
     }
-    /* if($(num).parents('.goods').hasClass('selected')){
-     var plusPrice = parseInt($(num).parents('.goods').attr('price'));
-     var newPrice = parseInt($(num).parent().siblings('.content').find('p.price').find('span').html());
-     $('#totalPrice').html(totalPrice);
-     } */
 }
-
 function minus_number(num){
     var thisPrice = $(num);
     var buyNum = $(num).siblings('.num').attr('value');
@@ -180,22 +181,26 @@ function minus_number(num){
         buyNum--;
         $(num).next().attr('value',buyNum);
         var goodsId = $(num).parents('.cart_goods').attr('goodsid');
-        var goodsAttr = $(num).siblings('p').html();
-        var cartId = $(num).parents('.cart_goods').attr('recid');
-        //postapi("/shop/cart/modifyGoodsNumber.do",{goods_id:goodsId,goods_attr:goodsAttr,goods_number:buyNum,cart_id:cartId},lowStock,{'user_id':user_id,'price':thisPrice});
-        /* if($(num).parents('.goods').hasClass('selected')){
-         var minusPrice = $(num).parents('.goods').attr('price');
-         totalPrice -= minusPrice;
-         $('#totalPrice').html(totalPrice);
-         } */
+        $.ajax({
+            url:'/cart/modifyGoodsNumber',
+            type:'post',
+            data:{goods_id:goodsId,goods_number:buyNum},
+            dataType:'json',
+            success:function(data){
+                lowStock(data,thisPrice)
+            }
+
+        });
+
     }
 }
 
 //判断库存的回调
 function lowStock(data,which){
+    console.log(data);
     var newPrice = data.data.goods_price;
-    which.price.parent().siblings('.content').find('p.price').find('span').html(newPrice);
-    which.price.parents('.goods').attr('price',newPrice);
+    which.parent().siblings('.content').find('p.price').find('span').html(newPrice);
+    which.parents('.goods').attr('price',newPrice);
     totalPrice = 0;
     for(var i = 0; i< $('.goods.selected').length;i++){
         var singlePrice = parseInt($('.goods.selected').eq(i).find('p.price').find('span').html()) * parseInt($('.goods.selected').eq(i).find('input').val());
@@ -205,5 +210,7 @@ function lowStock(data,which){
     if(data.msg == 'ERROR'){
         alert_Display("商品库存不足");
         flag = false;
+    }else{
+        flag = true;
     }
 }

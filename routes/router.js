@@ -21,6 +21,7 @@ router.post('/user/login',user.login); //登录
 router.get('/shopcart',auth.requireLogin,cart.cartList); //购物车页
 router.post('/cart/addToCart',auth.requireLogin,cart.addToCart); //加入购物车
 router.post('/cart/delFromCart',auth.requireLogin,cart.delFromCart);  //从购物车移除
+router.post('/cart/modifyGoodsNumber',auth.requireLogin,cart.modifyGoodsNumber); //修改商品数量
 router.get('/favorite',auth.requireLogin,fav.favList); //收藏夹页
 router.post('/fav/addToFav',auth.requireLogin,fav.addToFav); //加入收藏
 router.post('/fav/delFromFav',auth.requireLogin,fav.delFromFav);  //取消收藏
@@ -28,5 +29,6 @@ router.get('/user/me',auth.requireLogin,user.info); //用户页
 router.get('/user/address',auth.requireLogin,address.addressList); //用户地址
 router.post('/address/editAddress',auth.requireLogin,address.editAddress); //新增或修改地址
 router.post('/address/getAddress',auth.requireLogin,address.getAddress); //修改前得到地址
+router.get('/order',auth.requireLogin,function(req,res){res.render('order')});
 
 module.exports = router;

@@ -1,0 +1,51 @@
+<% include layout %>
+<link rel="stylesheet" href="/stylesheets/order.css">
+<body>
+<div id="content">
+    <div class="wx_wrap">
+
+        <!-- S 导航 -->
+        <div class="my_nav">
+            <ul id="nav">
+                <li class="cur" no="0"><a href="javascript:;">全部订单</a></li>
+                <li no="1" class=""><a href="javascript:;">待付款<!-- <span class="num" id="payDeaLNum"></span> --></a></li>
+                <li no="2" class=""><a href="javascript:;">待收货<!-- <span class="num" id="receiveDeaLNum"></span> --></a></li>
+                <li no="3" class=""><a href="javascript:;">待评价<!--span class="num">99</span--></a></li>
+            </ul>
+        </div>
+        <!-- E 导航 -->
+
+        <!-- S 内容 -->
+        <div class="my_order_wrap" style="overflow:hidden">
+            <div class="my_order_inner" id="cont" style="transform: translate(0px, 0px); transition: all 0.3s ease;height:auto">
+
+
+                <!-- S 待付款 -->
+                <div class="my_order" style="left:100%;">
+                    <div id="cont1"></div>
+                </div>
+                <!-- E 待付款 -->
+                <!-- S 待收获 -->
+                <div class="my_order" style="left:200%;">
+                    <div id="cont2"></div>
+                </div>
+                <!-- E 待收获  -->
+                <!-- S 待评价 -->
+                <div class="my_order" style="left:300%;">
+                    <div id="cont3"></div>
+                </div>
+                <!-- E 待评价 -->
+
+            </div>
+        </div>
+            <!-- E 内容 -->
+
+        <!-- S 加载 -->
+        <div class="wx_loading2" id="loading" style="display:none"><i class="wx_loading_icon" ></i></div>
+        <div class="wx_ending" id="nomore" style="display:none">已没有更多订单</div>
+        <div class="wx_ending" id="noyet"  style="display:block">暂无订单</div>
+        <!-- E 加载 -->
+    </div>
+</div>
+<script src="/javascripts/order.js"></script>
+</body>

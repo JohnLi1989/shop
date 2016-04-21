@@ -51,4 +51,19 @@
         </section>
     </div>
 </div>
+
+<script>
+    $('#allItem').on('click',function(){
+        localStorage.setItem("from","");
+    });
+    $('#payItem').on('click',function(){
+        localStorage.setItem("from","topay");
+    });
+    $('#acceptItem').on('click',function(){
+        localStorage.setItem("from","torec");
+    });
+    $('#commentItem').on('click',function(){
+        localStorage.setItem("from","toeva");
+    });
+</script>
 </body>

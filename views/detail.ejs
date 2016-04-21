@@ -33,42 +33,23 @@
             <div class="sku_container sku_container_on" id="skuCont">
                 <div class="sku_wrap">
                     <div id="propertyDiv">
-                        <!--<c:set var="attr_name" scope="session" value="" />
-                        <c:forEach items="${goods.goodsAttrs}" var="attrs">
-                            <c:if test="${attrs.attribute.attr_type == 1}">
-                                <c:if test="${attrs.attribute.attr_name == attr_name}">
-
-                                    <span class="option" attrid="${attrs.goods_attr_id}">${attrs.attr_value }</span>
-                                </c:if>
-                                <c:if test="${attrs.attribute.attr_name != attr_name}">
-                                    <c:if test="${attr_name != ''}">
-                    </div>
-                </div>
-                </c:if>
-                <div class="sku">
-                    <h3>${attrs.attribute.attr_name}：</h3>
-                    <div class="sku_list">
-							<span class="option option_selected"
-                                  attrid="${attrs.goods_attr_id}">${attrs.attr_value }</span>
-
-
-                        <c:set var="attr_name" scope="session"
-                               value="${attrs.attribute.attr_name}" />
-                        </c:if>
-                        </c:if>
-
-                        </c:forEach>
-                        <c:if test="${attr_name != ''}">
-                    </div>
-                </div>
-            </div>
-            </c:if>-->
-                    <div class="sku sku_num" id="skuNum">
-                        <h3>数量：</h3>
-                        <div class="num_wrap">
-                            <span class="minus minus_disabled" id="minus"></span> <input class="num" id="buyNum" type="tel" value="1" disabled> <span class="plus" id="plus"></span>
+                        <% /*goods.goods_attr.forEach(function(item){ %>
+                        <div class="sku">
+                            <h3><%=item.attr_name%>：</h3>
+                            <div class="sku_list">
+                                <span class="option option_selected"><%=item.attr_value[0]%></span>
+                                <% for(var i=1; i<item.attr_value.length; i++){ %>
+                                <span class="option"><%=item.attr_value[i]%></span>
+                                <% } %>
+                            </div>
                         </div>
-                    </div>
+                        <% })*/ %>
+                        <div class="sku sku_num" id="skuNum">
+                            <h3>数量：</h3>
+                            <div class="num_wrap">
+                                <span class="minus minus_disabled" id="minus"></span> <input class="num" id="buyNum" type="tel" value="1" disabled> <span class="plus" id="plus"></span>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -191,112 +172,5 @@
 </div>
 
 <script src="/javascripts/quickMenu.js"></script>
-<script>
-    var buyNum = $('#buyNum').attr('value');
-    $('#plus').on('click',function(){
-        buyNum++;
-        $('#buyNum').attr('value',buyNum);
-        $('#minus').removeClass('minus_disabled');
-
-    });
-    $('#minus').on('click',function(){
-        if(buyNum<1){
-            return false;
-        }else if(buyNum==1){
-            $('#minus').addClass('minus_disabled');
-        }else if(buyNum>1){
-            buyNum--;
-            $('#buyNum').attr('value',buyNum);
-        }
-    });
-
-    var width = $(window).width();
-    $('#detailTab span').each(function(){
-        $(this).click(function(){
-            var no = $(this).attr('no');
-            var height = $('#detail'+no+'').height();
-            $(this).addClass('cur');
-            $(this).siblings().removeClass('cur');
-            $('#detailCont').css({'transform':'translate('+(-(width*no))+'px,0px)','height':height});
-        });
-    });
-
-    $("#fav").on('click',function(){
-        var goods_id = $(this).attr('goodsid');
-        if(!$(this).hasClass("btn_fav_checked")){
-            $.ajax({
-                url:'/fav/addToFav',
-                data:{goods_ids:goods_id},
-                type:'post',
-                dataType:'json',
-                success:function(d){
-                    $('#fav').addClass("btn_fav_checked");
-                    alert_Display("收藏成功");
-                }
-            });
-        }else{
-            $.ajax({
-                url:'/fav/delFromFav',
-                data:{goods_ids:goods_id},
-                type:'post',
-                dataType:'json',
-                success:function(d){
-                    $('#fav').removeClass("btn_fav_checked");
-                    alert_Display("取消成功");
-                }
-            });
-        }
-    });
-
-    $("#addCart").click(function(){
-        var goods_id = $(this).attr('goodsid');
-        $.ajax({
-            url:'/cart/addToCart',
-            data:{goods_id:goods_id},
-            type:'post',
-            dataType:'json',
-            success:function(d){
-                console.log(d);
-                if(d.ret==-1){
-                    alert_Display("已存在于购物车");
-                }else{
-                    $("#cartNum").attr("num",parseInt($("#cartNum").attr("num"))+1);
-                    $("#popone").addClass("show");
-                    setTimeout(function(){$("#popone").removeClass("show");},1500);
-                    alert_Display("加入成功");
-                }
-            }
-        });
-    });
-    /*function getSuccess(data){
-        if(data.ret == -1){
-            alert_Display(data.data);
-            return false;
-        }
-
-    }
-    if(user_id==""){
-        var num=0;
-        for(var i=0;i<cart.length;i++){
-            num+=cart[i].goods_num;
-        }
-        if(num==0){
-            $("#cartNum").attr("num",0);
-        }else{
-            $("#cartNum").attr("num",num);
-        }
-    }else{
-        postapi("/shop/cart/getGoodsNum.do",{'goods':JSON.stringify(goods)},getNumSuccess, {'user_id':user_id});
-    }
-
-    function getNumSuccess(data){
-        var num=data.data;
-        if(num==0){
-            $("#cartNum").attr("num",0);
-        }else{
-            $("#cartNum").attr("num",num);
-        }
-    }*/
-
-</script>
+<script src="/javascripts/detail.js"></script>
 </body>

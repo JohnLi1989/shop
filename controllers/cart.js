@@ -40,10 +40,19 @@ exports.cartList = function(req,res){
 exports.delFromCart = function(req,res){
     var goods_ids = req.body.goods_ids.split(',');
     var user_id = req.session.user._id;
-    console.log(goods_ids);
     CartModel.delGoods(user_id,goods_ids,function(err,result){
        if(result){
            res.json({msg:"SUCCESS"});
        }
+    });
+}
+exports.modifyGoodsNumber = function(req,res){
+    var goods_id = req.body.goods_id;
+    var goods_number = req.body.goods_number;
+    GoodsModel.getDetail(goods_id,function(err,goods){
+       if(goods_number>=goods.goods_number){
+           return res.json({msg:"ERROR",data:{goods_price:goods.shop_price}});
+        }
+        res.json({data:{goods_price:goods.shop_price},msg:"SUCCESS"});
     });
 }
