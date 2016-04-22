@@ -12,7 +12,7 @@ $(function(){
     quck += '<a href="javascript:void(0);" id="quckIco2" class="btn_more">更多</a>';
     quck += '<a href="javascript:;" id="goTop" style="display:none;" class="goTopBtn btn_top btn_top_active">返回顶部</a>';
     quck += '<div class="wx_aside_item" id="quckMenu" >';
-    quck += '<a href="#" class="item_jd" target="_top">精选促销</a>';
+    quck += '<a href="/category/?cat=网球拍" class="item_jd" target="_top">商品分类</a>';
     quck += '<a href="/user/me" id="persLink" class="item_uc" target="_top">个人中心</a>';
     quck += '<a href="/index" class="item_index" id="quick_shoplink" >首页</a>';
     quck += '<a href="/favorite" class="item_fav" target="_top">我的收藏</a>';
