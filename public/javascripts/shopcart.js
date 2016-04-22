@@ -76,26 +76,27 @@ $('#shopCartConfirm').on('click',function(){
     if($('.cart_goods').find('div.selected').length == 0){
         alert_Display("未选择商品");
     }else{
-        var toPayArray = [];
+        var goodsids = [];
+        var goodsnum = [];
         $('.cart_goods').each(function(){
             if($(this).find('div.goods').hasClass('selected')==true){
-                toPayArray.push($(this).attr('recid'));
+                goodsids.push($(this).attr('goodsid'));
+                goodsnum.push($(this).find('.num').attr('value'));
             }
         });
-        var toPayIds = toPayArray.join(',');
-        postapi("/shop/cart/cartToPay.do",{cart_ids:toPayIds},toPaySuccess,{'user_id':user_id});
+        var ids = goodsids.join(',');
+        var num = goodsnum.join(',');
+        $.ajax({
+            url:'/pay/addToPay',
+            data:{goods_id:ids,goods_num:num},
+            type:'post',
+            dataType:'json',
+            success:function(data){
+                location = "/pay/"+data.pid;
+            }
+        });
     }
 });
-function toPaySuccess(data){
-    if(data.ret==1){
-        location="/shop/flow/flow.do";
-    }else if(data.ret==-1){
-        alert_Display(data.data);
-    }else if(data.ret==-2){
-        alert_Display("限时购买限每日13点30起半小时内");
-    }
-
-}
 
 //切换底部
 var toEdit = true;

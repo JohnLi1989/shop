@@ -11,11 +11,13 @@ var _ = require('lodash');
 
 exports.addToPay = function(req,res){
     var user_id = req.session.user._id;
-    var goods_id = req.body.goods_id;
-    var goods_num = req.body.goods_num;
-    var goods = [
-        {goods_id:goods_id,goods_num:goods_num}
-    ];
+    var goods_id = req.body.goods_id.split(',');
+    var goods_num = req.body.goods_num.split(',');
+    var zipgoods = _.zip(goods_id,goods_num);
+    var goods = [];
+    for(var i=0;i<zipgoods.length;i++){
+        goods.push({goods_id:zipgoods[i][0],goods_num:zipgoods[i][1]});
+    }
     var query = {user_id:user_id,goods:goods};
     PayModel.addToPay(query,function(err,result){
        res.json({pid:result._id});
@@ -26,8 +28,8 @@ exports.addToPay = function(req,res){
 exports.getPay = function(req,res){
     var pid = req.params.pid;
     var ep = new eventproxy();
-    ep.all('goods_success','address_success',function(payGoods,address){
-        res.render('pay',{payGoods:payGoods,address:address});
+    ep.all('goods_success','address_success','addlist_success',function(payGoods,address,addList){
+        res.render('pay',{payGoods:payGoods,address:address,addList:addList});
     });
     PayModel.getPay(pid,function(err,pay){
         var goods_ids = [];
@@ -52,5 +54,11 @@ exports.getPay = function(req,res){
                ep.emit('address_success',null);
            }
         });
+    });
+    var user_id = req.session.user._id;
+    AddressModel.getAllAddress(user_id,function(err,addList){
+       if(addList){
+            ep.emit('addlist_success',addList);
+        }
     });
 }
