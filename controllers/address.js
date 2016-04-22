@@ -39,7 +39,8 @@ exports.editAddress = function(req,res){
         address:addressInfo,
         isDefault:isDefault
     }
-    if(address_id!="undefined"){
+    console.log(address_id);
+    if(address_id!=undefined){
         if(isDefault=="true"){
             address.changeDefaultAddress(user_id,function(err){
                 if(err){
@@ -53,12 +54,15 @@ exports.editAddress = function(req,res){
             });
         }else{
             address.updateAddress(address_id,query,function(err,result){
+                if(err){throw err}
+                console.log(result);
                 if(result){
                     res.json({msg:"SUCCESS"});
                 }
             });
         }
     }else{
+        console.log(22223333);
         if(isDefault=="true"){
             address.changeDefaultAddress(user_id,function(err){
                 if(err){

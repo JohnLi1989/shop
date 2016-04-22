@@ -1,7 +1,7 @@
 /**
  * Created by john on 16/4/19.
  */
-
+var mongoose = require('mongoose');
 var GoodsModel = require('../models/goods');
 var FavModel = require('../models/fav');
 
@@ -25,6 +25,9 @@ exports.favList = function(req,res){
         for(var k in goods){
             goods_ids.push(goods[k].goods_id);
         }
+        goods_ids = goods_ids.map(function(item,index){
+            return new mongoose.Types.ObjectId(item);
+        });
         GoodsModel.getByGoodsId(goods_ids,function(err,goods){
             if(goods){
                 res.render('favorite',{goods:goods});

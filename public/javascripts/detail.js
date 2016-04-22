@@ -77,3 +77,17 @@ $("#addCart").click(function(){
         }
     });
 });
+
+$("#buyBtn").on('click', function() {
+    var goods_id=$(this).attr('goodsid');
+    $.ajax({
+        url:'/pay/addToPay',
+        data:{goods_id:goods_id,goods_num:$('#buyNum').val()},
+        type:'post',
+        dataType:'json',
+        success:function(data){
+            location = "/pay/"+data.pid;
+        }
+    });
+});
+

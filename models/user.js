@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var UserSchema = new mongoose.Schema({
     mobile : Number,   //登录用
     pass : String,      //密码
-    reg_time : Date     //注册时间
-
+    reg_time : Date,    //注册时间
+    balance:{type:Number,default:0} //余额
 });
 
 UserSchema.statics = {

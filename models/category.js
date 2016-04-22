@@ -22,11 +22,4 @@ CategorySchema.statics = {
 
 var CategoryModel = mongoose.model('Category',CategorySchema);
 
-var bbb = new CategoryModel({
-    cat_name:"Wilson",
-    root:"网球拍",
-    second : "Wilson",
-    third : "2016款",
-    cat_img : "http://cdnimg.taimo.cn/product/1579_120.jpg"
-});
 module.exports = CategoryModel;

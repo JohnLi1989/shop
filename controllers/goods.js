@@ -23,7 +23,7 @@ exports.detail = function(req,res){
     });
     if(req.session.user){
         var uid = req.session.user._id;
-        CartModel.count({goods_id:gid,user_id:uid},function(err,count){
+        CartModel.count({user_id:uid},function(err,count){
             ep.emit('count_success',count);
         });
         FavModel.getOneGoods({goods_id:gid,user_id:uid},function(err,result){

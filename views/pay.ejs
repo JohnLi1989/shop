@@ -1,0 +1,254 @@
+<% include layout %>
+<link rel="stylesheet" href="/stylesheets/tishi.css">
+<link rel="stylesheet" href="/stylesheets/pay.css">
+<body>
+<div id="myBody">
+    <div class="wx_wrap" id="wrapBody">
+        <div id="pagePay">
+
+            <div id="addressNull" class="address_null" style="display:none">
+                <h3>！请填写收货地址</h3>
+            </div>
+         <% if(address){ %>
+        <div id="addressDefault" class="address_defalut">
+            <h3>送至</h3>
+            <ul>
+                <li><%=address.province%><%=address.city%><%=address.district%><%=address.address%></li>
+                <li><strong><%=address.consignee%></strong><%=address.mobile%></li>
+                <li id="addressId" style="display: none"><%=address._id%></li>
+            </ul>
+        </div>
+        <% } %>
+
+
+    <div id="venderOrderList">
+        <div venderid="0" class="order_info">
+            <h4 onclick="window.location.href='/shopcart'">购物车</h4>
+            <ul>
+                <% for(var i=0;i<payGoods.length;i++){ %>
+                    <li class="hproduct noclick"><img class="photo" src="<%=payGoods[i][0].goods_thumb%>">
+                            <div class="" style="float: right; margin-top: 10px">
+                                <div id="modifyNumDom" class="num_wrap">
+                                    <span class="minus" num_tag="minus"></span>
+                                    <input class="num" style="height: 27px" num_tag="input" type="tel" value="<%=payGoods[i][1].goods_num%>" disabled>
+                                    <span class="plus" num_tag="plus"></span>
+                                    <p style="display: none">${cart.goods_id}</p>
+                                    <h1 style="display: none">${cart.rec_id}</h1>
+                                </div>
+                                <div id="kucun" style="color: red; text-align: right; margin-top: 5px; display: none">库存数量不足</div>
+                            </div>
+                            <p class="fn"><%=payGoods[i][0].goods_name%></p>
+
+                        <p class="sku">
+                            <em>价格：</em> <span class="price">¥<%=payGoods[i][0].shop_price%></span>
+                            <span class="tags"> </span> <span id="pingouPriceTag" style="display: none;" class="tag"></span>
+                        </p>
+                    </li>
+                    <c:if test="${cart.goods.is_rac == 1}">
+                        <c:set var="hasqiupai" value="true"></c:set>
+                    </c:if>
+                <% } %>
+            </ul>
+
+
+            <ul class="order_info_list">
+                    <li class="shipping" shiptype="shipziti"><strong>配送方式：</strong>
+                        <div class="shipping_content">
+                            <p>
+                                <span>顺丰速递</span>
+                            </p>
+                        </div>
+                    </li>
+            </ul>
+        </div>
+
+        <div class="buy_discount" id="buyDiscountArea">
+            <ul>
+
+                    <li id="jdQuanTab">
+                        <div id="conponListTab" style="display: block" bonusid="0">
+                            <strong>购物券：</strong>
+                            <span>
+                                    <!--<em class="disabled">未使用</em>-->
+                                    <em class="disabled">不可用</em>
+                            </span>
+                        </div>
+                    </li>
+
+                    <li id="jdBeanTab" style="display: block;"><strong>使用余额：</strong>
+                            <div class="buy_dou" style="margin-right: 0">不可用</div>
+                    </li>
+            </ul>
+
+        </div>
+
+        <!-- 备注 -->
+        <div class="buy_msg" id="remarkDiv">
+            <input type="text" placeholder="订单备注" value="" id="remark">
+
+        </div>
+        <!-- 备注end -->
+
+    </div>
+    <div id="payArea" class="pay_area">
+        <div id="payDeatil">
+            <p class="item">
+                商品总价：<strong id="cartPrice">¥${flow.goodsTotalPrice}</strong>
+            </p>
+            <c:if test="${flow.shipping.daoFu == true}">
+                <p class="item">
+                    +运费：<strong id="shippingPrice">¥0.0</strong>
+                </p>
+            </c:if>
+            <c:if test="${flow.shipping.daoFu != true}">
+                <p class="item">
+                    +运费：<strong id="shippingPrice">¥${flow.shipping.shipping_price}</strong>
+                </p>
+            </c:if>
+            <p class="price">
+                总价：<strong id="pageTotalPrice">¥${flow.payMoney}</strong>
+            </p>
+        </div>
+
+
+        <p class="action" id="payBtnList">
+            <a href="javascript:void(0);" manualclick="yes" id="btnAliPay">支付宝支付</a>
+        </p>
+
+    </div>
+
+<div class="wx_mask" style="display: none"></div>
+</div>
+<div id="addressList" class="address_list" style="display: none;"></div>
+<div id="pageAddAddress" class="address_new" style="display: none;"></div>
+<div id="pageEditAddress" class="address_new" style="display: none;" adid=''></div>
+<div id="laCalendar" class="appointment_type" style="display: none;"></div>
+<div id="appoint" class="appointment_type" style="display: none;"></div>
+<!--<div class="invoice_list" id="invoices" style="display: none;"></div> -->
+<div class="promo_list" id="itemPromoPage" style="display: none;"></div>
+<!-- <div id="selectShip" style="display: none;"></div> -->
+<div id="pickList" style="display: none;"></div>
+<div id="jdCartPage" style="display: none;" class="promo_list"></div>
+
+<div class="promo_list" id="newPromoPage" style="display: none;"></div>
+<div id="zitiModol" style="display: none">
+    <div class="mod_alert mod_alert_address show fixed">
+        <p class="title" ctag="name"></p>
+        <div class="content">
+            <h4>详细地址</h4>
+            <p ctag="info"></p>
+            <h4>电话号码</h4>
+            <p ctag="tel"></p>
+            <a ctag="telIcon" href="javascript:void(0);" class="tel"></a>
+        </div>
+        <div class="btns">
+            <a href="javascript:void(0);" ctag="iKnow" class="btn btn_1">知道了</a>
+        </div>
+    </div>
+    <div class="wx_mask"></div>
+</div>
+<div class="address_tips" style="display: none;">请完善地址信息</div>
+<!-- 确认浮层 -->
+<div class="wx_loading" id="wxloading" style="display: none;">
+    <div class="wx_loading_inner">
+        <i class="wx_loading_icon"></i>刷新...
+    </div>
+</div>
+
+
+
+
+<!-- 快递选择 -->
+
+<div id="selectShip" style="display: none">
+    <div class="shipping_type">
+        <div class="shipping_type_list" id="shipType">
+            <div id="shippingList">
+                <!-- 循环start -->
+                <c:forEach items="${flow.shippings}" var="shipping">
+                    <ul type="shipjd" shipid="${shipping.shipping_id}" class="abled">
+                        <li class="type">${shipping.shipping_name}</li>
+                        <c:if test="${shipping.shipping_id != 5}">
+                            <li class="price"><em>¥${shipping.shipping_price}</em></li>
+                        </c:if>
+                    </ul>
+                </c:forEach>
+                <!-- 循环end -->
+            </div>
+        </div>
+
+    </div>
+    <div id="savePayShip" class="total_promo">
+        <a href="javascript:void(0);" class="btn_submit">确认</a>
+    </div>
+</div>
+<!-- 快递end -->
+
+
+</div>
+
+
+
+
+
+
+
+
+<script type="text/html" id="tplAddressNeedUpdate">
+    <p><label for=""><span class="tit">收货人</span><input id="name" type="text" value="{{data.consignee}}" placeholder="姓名"></label></p>
+    <p><label for=""><span class="tit">联系方式</span><input id="mobile" value="{{data.mobile}}" type="tel" placeholder="手机或电话号码 "></label></p>
+    <p class="area">
+        <label for=""><span class="tit">省</span><select id="provinceId_m" name="provinceId" onchange="region.changed(this, 2, 'cityId_m')"><option value="1">--选择省份--</option><option value="2" >北京</option><option value="3" >安徽</option><option value="4" >福建</option><option value="5" >甘肃</option><option value="6" >广东</option><option value="7" >广西</option><option value="8" >贵州</option><option value="9" >海南</option><option value="10" >河北</option><option value="11" >河南</option><option value="12" >黑龙江</option><option value="13" >湖北</option><option value="14" >湖南</option><option value="15" >吉林</option><option value="16" >江苏</option><option value="17" >江西</option><option value="18" >辽宁</option><option value="19" >内蒙古</option><option value="20" >宁夏</option><option value="21" >青海</option><option value="22" >山东</option><option value="23" >山西</option><option value="24" >陕西</option><option value="25" >上海</option><option value="26" >四川</option><option value="27" >天津</option><option value="28" >西藏</option><option value="29" >新疆</option><option value="30" >云南</option><option value="31" >浙江</option><option value="32" >重庆</option><option value="33" >香港</option><option value="34" >澳门</option><option value="35" >台湾</option><option value="3409" >钓鱼岛</option></select></label>
+        <label for="" ><span class="tit">市</span><select id="cityId_m" onchange="region.changed(this, 3, 'areaId_m')">
+                <option value="">--选择城市--</option>
+            </select></label>
+        <label for="" ><span class="tit">区/县</span><select id="areaId_m">
+                <option value="">--选择县/区--</option>
+            </select></label>
+        <label for="" style="display: none;"><span class="tit">街道</span><select class="select" id="selectTown">
+            </select></label>
+    </p>
+    <p><label for=""><span class="tit">详细地址</span><input id="adinfo" value="{{data.address}}" type="text" placeholder="街道地址"></label></p>
+    <div class="checkbox_select" style="display: none;" id="editAddrSetDef">设为默认地址<span>（每次购买时会默认使用该地址）</span></div>
+    <p class="action">
+        <button class="submit" id="submitAddress">确认</button>
+    </p>
+</script>
+
+<script type="text/html" id="tplPageAddAddress">
+    <p><label for=""><span class="tit">收货人</span><input id="name" type="text" value="" placeholder="姓名"></label></p>
+    <p><label for=""><span class="tit">联系方式</span><input id="mobile" value="" type="tel" placeholder="手机或电话号码 "></label></p>
+    <p class="area">
+        <label for=""><span class="tit">省</span><select id="provinceId_m" name="provinceId" onchange="region.changed(this, 2, 'cityId_m')"><option value="1">--选择省份--</option><option value="2" >北京</option><option value="3" >安徽</option><option value="4" >福建</option><option value="5" >甘肃</option><option value="6" >广东</option><option value="7" >广西</option><option value="8" >贵州</option><option value="9" >海南</option><option value="10" >河北</option><option value="11" >河南</option><option value="12" >黑龙江</option><option value="13" >湖北</option><option value="14" >湖南</option><option value="15" >吉林</option><option value="16" >江苏</option><option value="17" >江西</option><option value="18" >辽宁</option><option value="19" >内蒙古</option><option value="20" >宁夏</option><option value="21" >青海</option><option value="22" >山东</option><option value="23" >山西</option><option value="24" >陕西</option><option value="25" >上海</option><option value="26" >四川</option><option value="27" >天津</option><option value="28" >西藏</option><option value="29" >新疆</option><option value="30" >云南</option><option value="31" >浙江</option><option value="32" >重庆</option><option value="33" >香港</option><option value="34" >澳门</option><option value="35" >台湾</option><option value="3409" >钓鱼岛</option></select></label>
+        <label for="" ><span class="tit">市</span><select id="cityId_m" onchange="region.changed(this, 3, 'areaId_m')">
+                <option value="">--选择城市--</option>
+            </select></label>
+        <label for="" ><span class="tit">区/县</span><select id="areaId_m">
+                <option value="">--选择县/区--</option>
+            </select></label>
+        <label for="" style="display: none;"><span class="tit">街道</span><select class="select" id="selectTown">
+            </select></label>
+    </p>
+    <p><label for=""><span class="tit">详细地址</span><input id="adinfo" value="" type="text" placeholder="街道地址"></label></p>
+    <div class="checkbox_select" style="display: none;" id="editAddrSetDef">设为默认地址<span>（每次购买时会默认使用该地址）</span></div>
+    <p class="action">
+        <button class="submit" id="submitAddress">确认</button>
+    </p>
+</script>
+
+<script type="text/html" id="tplAddressList">
+    {{each data as value}}
+    <div class="address">
+        <ul adid="{{value.address_id}}">
+            <li>{{value.address}}</li>
+            <li><strong>{{value.consignee}}</strong>{{value.mobile}}</li>
+        </ul>
+        <p class="edit" adid="{{value.address_id}}" ><span>编辑</span></p>
+    </div>
+    {{/each}}
+    <!--S -->
+    <div class="address_list_link" id="addressLink">
+        <a id="addAddress" href="javascript:void(0);" class="item item_new" style="display: block;">新增收货地址</a>
+    </div>
+</script>
+</body>

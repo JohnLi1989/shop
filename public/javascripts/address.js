@@ -150,7 +150,8 @@
                 'isDefault':$("#defaultId").hasClass('selected')?true:false,
             },
             dataType:'json',
-            success:function(){
+            success:function(data){
+                console.log(data);
                 window.location.hash='';
                 location.reload();
             }

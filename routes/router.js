@@ -7,6 +7,7 @@ var cart = require('../controllers/cart');
 var fav = require('../controllers/fav');
 var auth = require('../middlewares/auth');
 var address = require('../controllers/address');
+var pay = require('../controllers/pay');
 /* GET home page. */
 router.get('/goods/:gid', goods.detail); //详情页
 router.get('/category',category.category); //分类页
@@ -29,6 +30,8 @@ router.get('/user/me',auth.requireLogin,user.info); //用户页
 router.get('/user/address',auth.requireLogin,address.addressList); //用户地址
 router.post('/address/editAddress',auth.requireLogin,address.editAddress); //新增或修改地址
 router.post('/address/getAddress',auth.requireLogin,address.getAddress); //修改前得到地址
-router.get('/order',auth.requireLogin,function(req,res){res.render('order')});
+router.get('/order',auth.requireLogin,function(req,res){res.render('order')}); //订单列表页
+router.post('/pay/addToPay',auth.requireLogin,pay.addToPay);  //点击购买后生成购买信息
+router.get('/pay/:pid',auth.requireLogin,pay.getPay);  //获取购买信息
 
 module.exports = router;

@@ -3,6 +3,7 @@
  */
 var GoodsModel = require('../models/goods');
 var CartModel = require('../models/cart');
+var mongoose = require('mongoose');
 
 exports.addToCart = function(req,res){
     var user_id = req.session.user._id;
@@ -30,6 +31,9 @@ exports.cartList = function(req,res){
         for(var k in goods){
             goods_ids.push(goods[k].goods_id);
         }
+        goods_ids = goods_ids.map(function(item,index){
+            return new mongoose.Types.ObjectId(item);
+        });
         GoodsModel.getByGoodsId(goods_ids,function(err,goods){
             if(goods){
                 res.render('shopcart',{goods:goods});

@@ -28,28 +28,28 @@ GoodsSchema.statics = {
         this.find({goods_type:type},null,option,cb);
     },
     getByGoodsId : function(gids,cb){
-        this.find({_id:gids},cb);
+        this.find({_id:{$in:gids}},cb);
     }
 }
 
 var GoodsModel = mongoose.model('Good',GoodsSchema);
 
 var aaa = new GoodsModel({
-    goods_name:"Wilson Ultra 100 网球拍",
-    goods_img:"http://cdnimg.taimo.cn/product/1579_450.jpg",
-    goods_thumb:"http://cdnimg.taimo.cn/product/1579_120.jpg",
+    goods_name:"Head Graphene XT Prestige S 网球拍",
+    goods_img:"http://cdnimg.taimo.cn/product/1577_450.jpg",
+    goods_thumb:"http://cdnimg.taimo.cn/product/1577_120.jpg",
     goods_number:1000,
-    market_price:1999,
-    shop_price:1400,
-    is_new:true,
+    market_price:2380,
+    shop_price:1120,
+    is_new:false,
     is_hot:false,
-    goods_brief:"2016年新款",
-    sale_number:10,
-    goods_type:"2016款",
-    goods_desc:"<p>全球最细的球拍，搭配威力三角系统，瞬间绝杀，林丹同款</p><p><img src='http://cdnimg.taimo.cn/des/1603/a.jpg'></p><p><img src='http://cdnimg.taimo.cn/des/1603/b.jpg'></p><p><img src='http://cdnimg.taimo.cn/des/1603/c.jpg'></p>",
+    goods_brief:"305克 16*19",
+    sale_number:50,
+    goods_type:"Graphene系列",
+    goods_desc:"<p>独特配置，减轻重量后的全新Prestige S使网球选手感受着这一系列所带来的与众不同的球场操控体验。305克的重量适合大多数业余选手，实现攻击型打法与精准落点的完美平衡。</p><p><img src='http://cdnimg.taimo.cn/des/1603/a.jpg'></p><p><img src='http://cdnimg.taimo.cn/des/1603/b.jpg'></p><p><img src='http://cdnimg.taimo.cn/des/1603/c.jpg'></p>",
     goods_attr:[{attr_name:"拍柄",attr_value:["2号柄"]}],
     goods_brand:"Wilson",
-    goods_para:[{para_name:"排面大小",para_value:"95"},{para_name:"空拍重量",para_value:"320"},{para_name:"平衡点",para_value:"5点头轻"}]
+    goods_para:[{para_name:"排面大小",para_value:"98"},{para_name:"空拍重量",para_value:"305"},{para_name:"平衡点",para_value:"4点头轻"},{para_name:"硬度指数",para_value:"61"}]
 });
 module.exports = GoodsModel;
 
