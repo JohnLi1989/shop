@@ -6,9 +6,13 @@ var CartModel = require('../models/cart');
 var mongoose = require('mongoose');
 
 exports.addToCart = function(req,res){
+    if(!req.session.user){
+        return res.json({ret:0});
+    }
     var user_id = req.session.user._id;
     var goods_id = req.body.goods_id;
     var cart = {user_id:user_id,goods_id,goods_id};
+
     CartModel.getOneGoods(cart,function(err,goods){
         if(goods){
             return res.json({ret:-1});

@@ -35,7 +35,7 @@ GoodsSchema.statics = {
 var GoodsModel = mongoose.model('Good',GoodsSchema);
 
 var aaa = new GoodsModel({
-    goods_name:"Head Graphene XT Prestige S 网球拍",
+    goods_name:"Wilson ProStaff 1 网球拍",
     goods_img:"http://cdnimg.taimo.cn/product/1577_450.jpg",
     goods_thumb:"http://cdnimg.taimo.cn/product/1577_120.jpg",
     goods_number:1000,
@@ -43,9 +43,9 @@ var aaa = new GoodsModel({
     shop_price:1120,
     is_new:false,
     is_hot:false,
-    goods_brief:"305克 16*19",
+    goods_brief:"测试产品1",
     sale_number:50,
-    goods_type:"Graphene系列",
+    goods_type:"ProStaff系列",
     goods_desc:"<p>独特配置，减轻重量后的全新Prestige S使网球选手感受着这一系列所带来的与众不同的球场操控体验。305克的重量适合大多数业余选手，实现攻击型打法与精准落点的完美平衡。</p><p><img src='http://cdnimg.taimo.cn/des/1603/a.jpg'></p><p><img src='http://cdnimg.taimo.cn/des/1603/b.jpg'></p><p><img src='http://cdnimg.taimo.cn/des/1603/c.jpg'></p>",
     goods_attr:[{attr_name:"拍柄",attr_value:["2号柄"]}],
     goods_brand:"Wilson",

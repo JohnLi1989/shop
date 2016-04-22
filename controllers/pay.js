@@ -10,6 +10,9 @@ var eventproxy = require('eventproxy');
 var _ = require('lodash');
 
 exports.addToPay = function(req,res){
+    if(!req.session.user){
+        return res.json({ret:0});
+    }
     var user_id = req.session.user._id;
     var goods_id = req.body.goods_id.split(',');
     var goods_num = req.body.goods_num.split(',');

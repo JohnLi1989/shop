@@ -33,7 +33,7 @@ app.use(session({
   }),
   resave:true,
   saveUninitialized:true,
-  cookie:{maxAge:30*60*1000}
+  cookie:{maxAge:60*60*1000}
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req,res,next){

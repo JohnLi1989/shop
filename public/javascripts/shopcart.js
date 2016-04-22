@@ -92,7 +92,11 @@ $('#shopCartConfirm').on('click',function(){
             type:'post',
             dataType:'json',
             success:function(data){
-                location = "/pay/"+data.pid;
+                if(data.ret==0){
+                    location.href = '/user/login';
+                }else{
+                    location.href = "/pay/"+data.pid;
+                }
             }
         });
     }

@@ -6,6 +6,9 @@ var GoodsModel = require('../models/goods');
 var FavModel = require('../models/fav');
 
 exports.addToFav = function(req,res){
+    if(!req.session.user){
+        return res.json({ret:0});
+    }
     var user_id = req.session.user._id;
     var goods_ids = req.body.goods_ids.split(',');
     FavModel.addGoods(user_id,goods_ids,function(err,result){
@@ -36,6 +39,9 @@ exports.favList = function(req,res){
     });
 }
 exports.delFromFav = function(req,res){
+    if(!req.session.user){
+        return res.json({ret:0});
+    }
     var goods_id = req.body.goods_id;
     var user_id = req.session.user._id;
     FavModel.delGoods(user_id,goods_id,function(err,result){

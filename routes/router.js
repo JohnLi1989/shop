@@ -20,18 +20,18 @@ router.post('/user/alidayu',user.sendSmsCode); //发送短信验证码;
 router.get('/user/login',function(req,res){res.render('login')}); //登录页
 router.post('/user/login',user.login); //登录
 router.get('/shopcart',auth.requireLogin,cart.cartList); //购物车页
-router.post('/cart/addToCart',auth.requireLogin,cart.addToCart); //加入购物车
-router.post('/cart/delFromCart',auth.requireLogin,cart.delFromCart);  //从购物车移除
-router.post('/cart/modifyGoodsNumber',auth.requireLogin,cart.modifyGoodsNumber); //修改商品数量
+router.post('/cart/addToCart',cart.addToCart); //加入购物车
+router.post('/cart/delFromCart',cart.delFromCart);  //从购物车移除
+router.post('/cart/modifyGoodsNumber',cart.modifyGoodsNumber); //修改商品数量
 router.get('/favorite',auth.requireLogin,fav.favList); //收藏夹页
-router.post('/fav/addToFav',auth.requireLogin,fav.addToFav); //加入收藏
-router.post('/fav/delFromFav',auth.requireLogin,fav.delFromFav);  //取消收藏
+router.post('/fav/addToFav',fav.addToFav); //加入收藏
+router.post('/fav/delFromFav',fav.delFromFav);  //取消收藏
 router.get('/user/me',auth.requireLogin,user.info); //用户页
 router.get('/user/address',auth.requireLogin,address.addressList); //用户地址
-router.post('/address/editAddress',auth.requireLogin,address.editAddress); //新增或修改地址
-router.post('/address/getAddress',auth.requireLogin,address.getAddress); //修改前得到地址
+router.post('/address/editAddress',address.editAddress); //新增或修改地址
+router.post('/address/getAddress',address.getAddress); //修改前得到地址
 router.get('/order',auth.requireLogin,function(req,res){res.render('order')}); //订单列表页
-router.post('/pay/addToPay',auth.requireLogin,pay.addToPay);  //点击购买后生成购买信息
+router.post('/pay/addToPay',pay.addToPay);  //点击购买后生成购买信息
 router.get('/pay/:pid',auth.requireLogin,pay.getPay);  //获取购买信息
 router.get('/',function(req,res){res.render('index')}); //首页
 module.exports = router;

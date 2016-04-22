@@ -39,8 +39,12 @@ $("#fav").on('click',function(){
             type:'post',
             dataType:'json',
             success:function(d){
-                $('#fav').addClass("btn_fav_checked");
-                alert_Display("收藏成功");
+                if(d.ret==0){
+                    location.href = '/user/login';
+                }else{
+                    $('#fav').addClass("btn_fav_checked");
+                    alert_Display("收藏成功");
+                }
             }
         });
     }else{
@@ -50,8 +54,12 @@ $("#fav").on('click',function(){
             type:'post',
             dataType:'json',
             success:function(d){
-                $('#fav').removeClass("btn_fav_checked");
-                alert_Display("取消成功");
+                if(d.ret==0){
+                    location.href = '/user/login';
+                }else{
+                    $('#fav').removeClass("btn_fav_checked");
+                    alert_Display("取消成功");
+                }
             }
         });
     }
@@ -66,7 +74,9 @@ $("#addCart").click(function(){
         dataType:'json',
         success:function(d){
             console.log(d);
-            if(d.ret==-1){
+            if(d.ret==0){
+                location.href = '/user/login';
+            }else if(d.ret==-1){
                 alert_Display("已存在于购物车");
             }else{
                 $("#cartNum").attr("num",parseInt($("#cartNum").attr("num"))+1);
@@ -86,7 +96,11 @@ $("#buyBtn").on('click', function() {
         type:'post',
         dataType:'json',
         success:function(data){
-            location = "/pay/"+data.pid;
+            if(data.ret==0){
+                location.href = '/user/login';
+            }else{
+                location.href = "/pay/"+data.pid;
+            }
         }
     });
 });
