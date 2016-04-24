@@ -286,7 +286,7 @@ function submitForm(){
         success : function(data) {
             if(data.msg=='SUCCESS'){
                 betSuccess5("注册成功!","确认",function(){
-                    location.href="/list/Burn系列";
+                    location.href="/user/login";
                 },{});
             }else if(data.ret==-2){
                     $('#smsCodeError').html('验证码不正确');

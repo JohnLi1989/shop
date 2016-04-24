@@ -34,4 +34,5 @@ router.get('/order',auth.requireLogin,function(req,res){res.render('order')}); /
 router.post('/pay/addToPay',pay.addToPay);  //点击购买后生成购买信息
 router.get('/pay/:pid',auth.requireLogin,pay.getPay);  //获取购买信息
 router.get('/',function(req,res){res.render('index')}); //首页
+
 module.exports = router;
