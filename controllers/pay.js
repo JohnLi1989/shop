@@ -47,6 +47,7 @@ exports.getPay = function(req,res){
         GoodsModel.getByGoodsId(goods_ids,function(err,goods){
             if(goods){
                 var payGoods = _.zip(goods,goods_num);
+                console.log(payGoods);
                 ep.emit('goods_success',payGoods);
             }
         });
