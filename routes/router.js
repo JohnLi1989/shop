@@ -8,6 +8,8 @@ var fav = require('../controllers/fav');
 var auth = require('../middlewares/auth');
 var address = require('../controllers/address');
 var pay = require('../controllers/pay');
+
+var addgoods = require('../scripts/addGoods')
 /* GET home page. */
 router.get('/goods/:gid', goods.detail); //详情页
 router.get('/category',category.category); //分类页
@@ -34,5 +36,8 @@ router.get('/order',auth.requireLogin,function(req,res){res.render('order')}); /
 router.post('/pay/addToPay',pay.addToPay);  //点击购买后生成购买信息
 router.get('/pay/:pid',auth.requireLogin,pay.getPay);  //获取购买信息
 router.get('/',function(req,res){res.render('index')}); //首页
+
+
+router.get('/admin/addgoods',addgoods.addGoods)
 
 module.exports = router;

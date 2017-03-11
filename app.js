@@ -11,20 +11,23 @@ var routes = require('./routes/router');
 
 var app = express();
 
+//启动并连接mongodb
 mongoose.connect('mongodb://localhost/shop');
 mongoose.connection.on('open',function(){
   console.log('mongodb is open');
 });
-// view engine setup
+// 设置视图文件目录和模版引擎 用的ejs模版
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
+//app.use是用于处理http請求的中间件 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+//设置session
 app.use(session({
   secret:'johnli',
   store : new RedisStore({
@@ -35,7 +38,10 @@ app.use(session({
   saveUninitialized:true,
   cookie:{maxAge:60*60*1000}
 }));
+//设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
+//设置全局的变量 user 和 smscode
+//user是用户信息 smscode是短信验证码
 app.use(function(req,res,next){
   res.locals.user = req.session.user;
   next();
@@ -44,8 +50,11 @@ app.use(function(req,res,next){
   app.locals.smscode = req.session.smscode;
   next();
 });
+//设置根路由 路由都在router.js里
 app.use('/', routes);
 
+
+//下面都是一些自动生成的 404页面 500页面
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
