@@ -37,9 +37,9 @@ exports.getPay = function(req,res){
     PayModel.getPay(pid,function(err,pay){
         var goods_ids = [];
         var goods_num = [];
-        for(var k in pay.goods){
-            goods_ids.push(pay.goods[k].goods_id);
-            goods_num.push({goods_num:pay.goods[k].goods_num});
+        for(goods of pay.goods){
+            goods_ids.push(goods.goods_id);
+            goods_num.push({goods_num:goods.goods_num});
         }
         goods_ids = goods_ids.map(function(item,index){
             return new mongoose.Types.ObjectId(item);
@@ -47,7 +47,6 @@ exports.getPay = function(req,res){
         GoodsModel.getByGoodsId(goods_ids,function(err,goods){
             if(goods){
                 var payGoods = _.zip(goods,goods_num);
-                console.log(payGoods);
                 ep.emit('goods_success',payGoods);
             }
         });
